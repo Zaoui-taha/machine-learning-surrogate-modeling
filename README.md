@@ -62,6 +62,18 @@ The experimental study involved **350 training simulations and 25 independent te
 for temperature-field prediction
 using RRMSE, R², and maximum absolute error.*
 
+![Comparison of parametrized and classical MMGP for temperature](figures/Eval_pression.png)
+
+*Comparison of parametrized and classical MMGP models
+for pressure-field prediction
+using RRMSE, R², and maximum absolute error.*
+
+![Comparison of parametrized and classical MMGP for temperature](figures/Eval_vitesse.png)
+
+*Comparison of parametrized and classical MMGP models
+for velocity-field prediction
+using RRMSE, R², and maximum absolute error.*
+
 ### Nonlinear Surrogate Modeling
 
 - An optimized autoencoder with an **11-dimensional latent space** improved local temperature-field reconstruction compared with POD.
