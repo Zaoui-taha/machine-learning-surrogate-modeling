@@ -1,6 +1,6 @@
-## 6. Nonlinear Dimensionality Reduction with Autoencoders
+## Nonlinear Dimensionality Reduction with Autoencoders
 
-### 6.1. Motivation: Beyond Linear Dimensionality Reduction
+### 1. Motivation: Beyond Linear Dimensionality Reduction
 
 The previous experiments highlighted an important limitation of POD-based surrogate modeling: although the dominant spatial structures were accurately reconstructed, significant errors persisted in regions characterized by strong localized variations.
 
@@ -14,7 +14,7 @@ Unlike POD, which projects the data onto a linear subspace, autoencoders learn n
 
 The objective was to obtain a more expressive low-dimensional representation of the temperature fields while reducing the largest local reconstruction errors.
 
-### 6.2. Autoencoder-Based Dimensionality Reduction
+### 2. Autoencoder-Based Dimensionality Reduction
 
 An autoencoder consists of two components:
 
@@ -27,7 +27,7 @@ The network was designed to learn a compact representation of these fields while
 
 The resulting latent variables could subsequently replace the POD coefficients as prediction targets for Gaussian Process Regression.
 
-### 6.3. Reconstruction Loss and Local Error Penalization
+### 3. Reconstruction Loss and Local Error Penalization
 
 A central challenge in training the autoencoder was the selection of an appropriate reconstruction loss function.
 
@@ -64,7 +64,7 @@ The values selected empirically for the experiments were:
 
 This loss formulation aims to balance global reconstruction accuracy with improved representation of localized physical phenomena.
 
-### 6.4. Architecture Optimization and Activation Function Selection
+### 4. Architecture Optimization and Activation Function Selection
 
 The performance of the autoencoder depends strongly on architectural and training hyperparameters.
 
@@ -94,7 +94,7 @@ Consequently, ELU was retained for the subsequent experiments.
 
 However, this initial MSE-based approach did not sufficiently improve local reconstruction accuracy compared with POD, motivating the introduction of the hybrid loss function.
 
-### 6.5. Optimizing the Autoencoder for Local Reconstruction
+### 5. Optimizing the Autoencoder for Local Reconstruction
 
 A second experimental investigation focused on reducing the maximum absolute reconstruction error using the hybrid loss.
 
@@ -118,7 +118,7 @@ The training curves showed that the global MSE decreased rapidly during the firs
 
 This behavior highlights the contribution of the hybrid loss in explicitly targeting the largest reconstruction errors.
 
-### 6.6. Reconstruction Performance: Autoencoder vs. POD
+### 6. Reconstruction Performance: Autoencoder vs. POD
 
 After selecting the autoencoder architecture, its reconstruction performance was compared with the linear POD representation.
 
@@ -134,7 +134,7 @@ Additionally, both methods performed slightly better on training data than on un
 
 These observations indicate that nonlinear dimensionality reduction can improve local reconstruction quality, but does not completely eliminate the difficulty of representing strongly localized phenomena.
 
-### 6.7. Integration into the MMGP Framework
+### 7. Integration into the MMGP Framework
 
 The optimized autoencoder was subsequently integrated into the surrogate modeling pipeline.
 
@@ -164,7 +164,7 @@ Nevertheless, the dispersion intervals of the evaluation metrics overlapped subs
 
 Furthermore, **mean maximum prediction errors remained above 30°C**, which was still insufficient for the accuracy requirements of the industrial application.
 
-### 6.8. Discussion and Main Findings
+### 8. Discussion and Main Findings
 
 The investigation of nonlinear dimensionality reduction led to several important findings:
 
@@ -181,4 +181,3 @@ The investigation of nonlinear dimensionality reduction led to several important
 Overall, these experiments demonstrate the potential of combining nonlinear dimensionality reduction with Gaussian Process Regression for high-dimensional surrogate modeling.
 
 However, the remaining prediction errors indicate that further research is necessary before the approach can satisfy the precision requirements of the considered industrial application.
-
