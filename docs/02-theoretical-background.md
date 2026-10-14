@@ -1,10 +1,10 @@
-## 3. Theoretical Background
+## Theoretical Background
 
 The Mesh Morphing Gaussian Process (MMGP) framework combines several mathematical and computational techniques to construct surrogate models for physical fields defined on variable computational meshes.
 
 This section introduces the main theoretical concepts underlying the approach: **Proper Orthogonal Decomposition (POD)**, **Mesh Morphing**, and **Gaussian Process Regression (GPR)**.
 
-### 3.1. Proper Orthogonal Decomposition (POD)
+### 1. Proper Orthogonal Decomposition (POD)
 
 Proper Orthogonal Decomposition is a linear dimensionality reduction technique widely used in reduced-order modeling to represent high-dimensional physical fields through a limited number of dominant spatial modes.
 
@@ -47,7 +47,7 @@ In this project, a **non-intrusive POD approach** is adopted: the governing phys
 
 This considerably reduces the dimensionality of the model outputs.
 
-### 3.2. Mesh Morphing and Geometrical Standardization
+### 2. Mesh Morphing and Geometrical Standardization
 
 A major challenge in learning finite element solutions is that different simulations may be performed on meshes with varying geometries, numbers of nodes, and spatial discretizations.
 
@@ -74,7 +74,7 @@ The geometrical information is also preserved by transferring the original mesh 
 
 These coordinate fields can then be compressed through POD, providing a reduced representation of the original geometry.
 
-### 3.3. Gaussian Process Regression (GPR)
+### 3. Gaussian Process Regression (GPR)
 
 Gaussian Process Regression is a probabilistic supervised learning approach used to approximate unknown relationships between input parameters and output quantities.
 
@@ -95,7 +95,7 @@ An additional advantage is its ability to provide **predictive uncertainty estim
 
 Within the MMGP framework, Gaussian Process Regression is applied to the reduced coefficients of physical fields rather than to the complete high-dimensional simulation outputs.
 
-### 3.4. Integration within the MMGP Framework
+### 4. Integration within the MMGP Framework
 
 The MMGP methodology combines the previous techniques into a unified surrogate modeling workflow.
 
@@ -121,7 +121,7 @@ Reconstruct the predicted physical fields through inverse POD and transfer them 
 
 The resulting framework provides a way to learn high-dimensional finite element solutions while accounting for geometrical variability.
 
-### 3.5. Preliminary Validation on a Simple Test Case
+### 5. Preliminary Validation on a Simple Test Case
 
 Before applying the methodology to the industrial problem, a preliminary study was performed on a one-dimensional heat equation.
 
