@@ -8,10 +8,27 @@ Proper Orthogonal Decomposition provides an optimal linear representation under 
 
 Consequently, increasing the number of POD modes does not necessarily lead to sufficient improvements in local reconstruction accuracy.
 
-![POD errors with regard to the number of modes](../figures/err_max_evol_T.png)
+<p align="center">
+  <img src="../figures/err_max_evol_T.png"
+       alt="POD errors with regard to the number of modes"
+       width="450">
+</p>
 
-*Evolution of the distribution of maximum absolute reconstruction errors
-for linear POD with regard to the number of POD modes*
+<p align="center">
+  <em>Figure 2. Evolution of the distribution of maximum absolute reconstruction errors
+for linear POD with regard to the number of POD modes.</em>
+</p>
+
+<p align="center">
+  <img src="../figures/pod_simu_6.png"
+       alt="POD errors with regard to the number of modes"
+       width="750">
+</p>
+
+<p align="center">
+  <em>Figure 1. Evolution of the residuals field with regard to the number of the POD modes for a simulation in the test set.</em>
+</p>
+
 
 To address this limitation, a **nonlinear dimensionality reduction approach based on autoencoders** was investigated.
 
@@ -20,11 +37,6 @@ Unlike POD, which projects the data onto a linear subspace, autoencoders learn n
 The objective was to obtain a more expressive low-dimensional representation of the temperature fields while reducing the largest local reconstruction errors.
 
 ### 2. Autoencoder-Based Dimensionality Reduction
-
-An autoencoder consists of two components:
-
-- **Encoder:** Compresses the original high-dimensional physical field into a low-dimensional latent representation.
-- **Decoder:** Reconstructs the original physical field from its latent representation.
 
 In this study, the autoencoder was applied to temperature fields represented on the common reference mesh.
 
@@ -93,7 +105,7 @@ Four activation functions were evaluated:
 
 The initial experiments used MSE as the reconstruction objective.
 
-Among the tested activation functions, **ELU consistently achieved the lowest validation errors**, followed by ReLU. Tanh and Sigmoid showed less satisfactory performance.
+Among the tested activation functions, **ELU consistently achieved the lowest validation errors**.
 
 Consequently, ELU was retained for the subsequent experiments.
 
@@ -110,10 +122,6 @@ The experiments revealed that increasing network depth did not systematically im
 In particular, architectures containing six or seven hidden layers produced higher local reconstruction errors than shallower alternatives.
 
 Among the evaluated configurations, the best results were obtained using **three hidden layers and a latent dimension of 11**.
-
-The selected encoder architecture was:
-
-**13,125 → 2,048 → 512 → 128 → 11**
 
 The decoder reconstructs the temperature field from the resulting 11-dimensional latent representation.
 
@@ -142,10 +150,17 @@ These observations indicate that nonlinear dimensionality reduction can improve 
 
 ### POD vs. Autoencoder Reconstruction
 
-![POD and Autoencoder reconstruction errors](../figures/AEvsPOD.png)
+<p align="center">
+  <img src="../figures/AEvsPOD.png"
+       alt="POD and Autoencoder reconstruction errors"
+       width="650">
+</p>
 
-*Distribution of maximum absolute reconstruction errors
-for linear POD and nonlinear autoencoder representations.*
+<p align="center">
+  <em>Figure 3. Distribution of maximum absolute reconstruction errors
+for linear POD and nonlinear autoencoder representations..</em>
+</p>
+
 
 ### 7. Integration into the MMGP Framework
 
