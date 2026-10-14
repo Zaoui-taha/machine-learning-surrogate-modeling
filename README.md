@@ -86,9 +86,10 @@ The complete methodology, experimental investigations, and scientific analyses a
 
 ## References
 
-The methodology builds upon the MMGP framework introduced by Casenave, Staber, and Roynard (NeurIPS 2023), together with research on mesh deformation, reduced-order modeling, and Gaussian Process Regression.
+The research builds upon the MMGP framework and related methods in mesh morphing, Gaussian Process Regression, and reduced-order modeling.
 
-A detailed bibliography is provided in the project's research documentation.
+[View Selected Scientific References](docs/07-references.md)
+
 
 ## Documentation & Availability
 
