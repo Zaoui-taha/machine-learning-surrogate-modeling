@@ -81,7 +81,7 @@ The complete methodology, experimental investigations, and scientific analyses a
 - [Theoretical Background](docs/02-theoretical-background.md)
 - [Methodology & Experimental Design](docs/03-methodology.md)
 - [Results & Model Comparison](docs/04-results.md)
-- [Nonlinear Dimensionality Reduction with Autoencoders](docs/05-autoencoders.md)
+- [Solution improvement with Nonlinear Dimensionality Reduction by using Autoencoders](docs/05-solution-improvement.md)
 - [Conclusions & Future Research](docs/06-conclusions.md)
 
 ## References
