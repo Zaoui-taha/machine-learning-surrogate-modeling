@@ -8,7 +8,7 @@ Proper Orthogonal Decomposition provides an optimal linear representation under 
 
 Consequently, increasing the number of POD modes does not necessarily lead to sufficient improvements in local reconstruction accuracy.
 
-![POD errors with regard to the number of modes](../figures/enc-dec_T.png)
+![POD errors with regard to the number of modes](../figures/err_max_evol_T.png)
 
 *Evolution of the distribution of maximum absolute reconstruction errors
 for linear POD with regard to the number of POD modes*
