@@ -50,19 +50,33 @@ A nonlinear extension was subsequently developed using an autoencoder with a hyb
 
 The experimental study involved **350 training simulations and 25 independent test simulations**.
 
-**Surrogate Model Comparison**
+### Surrogate Model Performance
 
 - The parametrized MMGP generally outperformed the classical formulation across temperature, pressure, and velocity predictions.
 - The parametrized model achieved **R² greater than 0.95 for pressure** and close to 1 for velocity.
 - Despite strong global performance, large localized errors remained, particularly near regions of maximum pressure and temperature gradients.
 
-**Nonlinear Dimensionality Reduction**
+![Comparison of parametrized and classical MMGP for temperature](figures/Eval_Temperature.png)
+
+*Comparison of parametrized and classical MMGP models
+for temperature-field prediction
+using RRMSE, R², and maximum absolute error.*
+
+### Nonlinear Surrogate Modeling
 
 - An optimized autoencoder with an **11-dimensional latent space** improved local temperature-field reconstruction compared with POD.
 - The nonlinear MMGP reduced the mean maximum prediction error relative to the classical linear representation in the evaluated configurations.
 - Nevertheless, mean maximum temperature prediction errors remained above **30°C**, preventing the approach from meeting the targeted industrial accuracy requirements.
 
 These findings highlight an important challenge in scientific Machine Learning: **strong global predictive performance does not necessarily guarantee accurate reconstruction of localized physical phenomena.**
+
+![Comparison of three MMGP formulations](figures/All_models.png)
+
+*Comparison of parametrized MMGP, classical MMGP,
+and nonlinear MMGP for temperature-field prediction.
+The results illustrate improvements in local prediction
+accuracy while highlighting remaining limitations.*
+
 
 ## Limitations & Future Research
 
