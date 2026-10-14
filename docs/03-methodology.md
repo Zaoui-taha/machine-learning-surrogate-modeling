@@ -1,10 +1,10 @@
-## 4. Proposed Methodology & Experimental Design
+## Proposed Methodology & Experimental Design
 
 The development of the surrogate model involved several stages, from experimental design and finite element data generation to mesh standardization, dimensionality reduction, and Gaussian Process Regression.
 
 Particular attention was given to the methodological choices affecting the quality of the physical field representations and the predictive performance of the surrogate models.
 
-### 4.1. Input Parameters and Experimental Design
+### 1. Input Parameters and Experimental Design
 
 The numerical model depends on a set of physical and geometrical parameters describing the manufacturing process.
 
@@ -28,7 +28,7 @@ The training and test sets were generated using separate experimental designs to
 
 The resulting samples were inspected through their marginal distributions and two-dimensional projections to assess their spatial distribution across the input domain.
 
-### 4.2. High-Fidelity Simulation Data
+### 2. High-Fidelity Simulation Data
 
 For each sampled parameter configuration, a finite element simulation was performed to compute the corresponding physical fields.
 
@@ -44,7 +44,7 @@ However, the simulations were performed on geometrically varying computational d
 
 A geometrical standardization procedure was therefore required before applying dimensionality reduction and supervised learning.
 
-### 4.3. Mesh Morphing Strategies and Reference Mesh Selection
+### 3. Mesh Morphing Strategies and Reference Mesh Selection
 
 One of the main methodological investigations concerned the choice of the reference domain used to standardize the computational meshes.
 
@@ -91,7 +91,7 @@ However, **RBF morphing toward the median reference geometry produced fields tha
 
 This observation motivated the selection of the median reference geometry for the subsequent surrogate modeling experiments.
 
-### 4.4. Physical Field Transport and Interpolation
+### 4. Physical Field Transport and Interpolation
 
 Following mesh morphing, the physical fields associated with each simulation were transferred onto the transformed meshes and interpolated onto a common reference discretization.
 
@@ -101,7 +101,7 @@ This procedure provided a consistent representation of all simulation outputs, a
 
 Visual inspections were performed to verify that the interpolation and geometrical transformations preserved the main physical structures of the temperature, pressure, and velocity fields.
 
-### 4.5. Dimensionality Reduction Using POD
+### 5. Dimensionality Reduction Using POD
 
 Once the numerical fields were represented on the common reference mesh, Proper Orthogonal Decomposition was applied to reduce their dimensionality.
 
@@ -121,7 +121,7 @@ For the geometrical coordinate fields, **six POD modes were retained for each co
 
 The physical fields were similarly represented through reduced modal coefficients, which subsequently served as the target outputs of the regression models.
 
-### 4.6. Input Correlation Analysis
+### 6. Input Correlation Analysis
 
 Before training the surrogate models, a correlation analysis was performed to investigate potential dependencies and redundancies between geometrical descriptors.
 
@@ -133,7 +133,7 @@ This observation motivated the removal of one redundant input variable from the 
 
 The analysis also highlighted that important geometrical information was not necessarily concentrated in the first POD modes, reinforcing the need to consider more than explained variance when selecting reduced descriptors.
 
-### 4.7. Gaussian Process Surrogate Model Configurations
+### 7. Gaussian Process Surrogate Model Configurations
 
 Two surrogate modeling formulations were developed and compared.
 
