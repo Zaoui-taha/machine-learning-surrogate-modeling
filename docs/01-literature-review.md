@@ -1,6 +1,6 @@
-## 2. Literature Review & Model Selection
+## Literature Review & Model Selection
 
-### 2.1. Model Selection Criteria
+### 1. Model Selection Criteria
 
 Selecting an appropriate surrogate modeling approach requires accounting for both the physical characteristics of the problem and the computational constraints associated with high-fidelity simulations.
 
@@ -16,7 +16,7 @@ In this study, four main requirements guided the selection of the modeling frame
 
 These requirements formed the basis for reviewing and comparing several families of surrogate modeling methods.
 
-### 2.2. Review of Existing Approaches
+### 2. Review of Existing Approaches
 
 Several machine learning approaches have been proposed in the literature to approximate solutions of partial differential equations and reduce the computational burden of numerical simulations.
 
@@ -61,7 +61,7 @@ This makes GPR particularly attractive for the present application, as it combin
 
 Nevertheless, directly applying Gaussian Process Regression to full-resolution physical fields remains challenging because of their high dimensionality and the variability of the computational meshes.
 
-### 2.3. Geometrical Variability and Dimensionality Reduction
+### 3. Geometrical Variability and Dimensionality Reduction
 
 Beyond the choice of regression model, two additional challenges must be addressed.
 
@@ -93,7 +93,7 @@ Two relevant approaches are:
 
 POD provides a well-established and computationally efficient starting point for reduced-order modeling. However, nonlinear representations may offer advantages when the physical fields contain complex or strongly localized structures.
 
-### 2.4. Selection of the MMGP Framework
+### 4. Selection of the MMGP Framework
 
 Based on the literature review and the requirements identified above, the **Mesh Morphing Gaussian Process (MMGP)** framework was selected as the starting point for this study.
 
