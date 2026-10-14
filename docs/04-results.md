@@ -1,4 +1,4 @@
-## 5. Results & Model Comparison
+## Results & Model Comparison
 
 The predictive performance of the developed surrogate models was evaluated using independent test simulations.
 
@@ -9,7 +9,7 @@ Two Gaussian Process-based surrogate modeling approaches were compared:
 
 The evaluation aimed to assess not only the ability of the models to reproduce the global behavior of the physical fields, but also their accuracy in regions characterized by strong spatial gradients and localized physical phenomena.
 
-### 5.1. Evaluation Metrics
+### 1. Evaluation Metrics
 
 Three complementary metrics were considered to evaluate the quality of the predicted physical fields.
 
@@ -31,7 +31,7 @@ This metric is particularly important for the present application because locali
 
 Using both global and local metrics provides a more complete assessment of surrogate model reliability.
 
-### 5.2. Temperature Field Prediction
+### 2. Temperature Field Prediction
 
 Both surrogate models successfully reproduced the main spatial trends of the temperature field.
 
@@ -49,7 +49,7 @@ The parametrized MMGP formulation provided a more accurate reconstruction of loc
 
 These observations highlight an important limitation: reproducing the global behavior of a physical field does not necessarily guarantee sufficient local accuracy for industrial decision-making.
 
-### 5.3. Pressure Field Prediction
+### 3. Pressure Field Prediction
 
 Pressure prediction represented a particularly challenging aspect of the study.
 
@@ -65,7 +65,7 @@ Nevertheless, the remaining errors were still too large for reliable prediction 
 
 This result demonstrates the difficulty of learning physical fields whose behavior is dominated by concentrated spatial structures.
 
-### 5.4. Velocity Field Prediction
+### 4. Velocity Field Prediction
 
 The surrogate models demonstrated comparatively strong performance in predicting the velocity field.
 
@@ -82,7 +82,7 @@ For the illustrated test configuration, residual magnitudes were of the order of
 
 The parametrized MMGP consistently provided more accurate velocity predictions than the classical MMGP formulation.
 
-### 5.5. Quantitative Comparison of Surrogate Models
+### 5. Quantitative Comparison of Surrogate Models
 
 The two modeling approaches were evaluated on the independent test dataset using RRMSE, R², and maximum absolute error.
 
@@ -136,7 +136,7 @@ This analysis revealed an important limitation of feature selection based solely
 
 The results emphasize the importance of combining interpretability methods with experimental validation when selecting surrogate model inputs.
 
-### 5.7. Investigating the Limitations of POD Reconstruction
+### 7. Investigating the Limitations of POD Reconstruction
 
 Despite the encouraging global prediction results, both surrogate models exhibited substantial errors in localized regions.
 
@@ -166,7 +166,7 @@ These results indicate that increasing the number of POD modes is not sufficient
 
 The analysis also suggests that the limitations arise not only from the regression model but from the interaction between dimensionality reduction, reconstruction, and generalization to new simulations.
 
-### 5.8. Main Findings and Motivation for Further Investigation
+### 8. Main Findings and Motivation for Further Investigation
 
 The experimental comparison led to several important conclusions:
 
