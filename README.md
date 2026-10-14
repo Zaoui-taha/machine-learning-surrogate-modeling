@@ -91,10 +91,17 @@ The research builds upon the MMGP framework and related methods in mesh morphing
 [View Selected Scientific References](docs/07-references.md)
 
 
+
 ## Documentation & Availability
 
-The original research report was written in French. The documentation in this repository provides an English overview of the methodology, experiments, results, and limitations.
+The original research report was written in French in accordance
+with the academic requirements of my institution.
 
-**Source code is not included in this public repository.**
+The complete report is available here:
 
-The project is presented as a documented scientific research portfolio, supported by experimental analyses and visualizations.
+[View Full Research Report (French, PDF)](report/internship_research_report_fr.pdf)
+
+Detailed scientific documentation is provided in English
+in the `docs/` directory.
+
+**Source code is not publicly available in this repository.**
