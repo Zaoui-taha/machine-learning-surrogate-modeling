@@ -8,6 +8,11 @@ Proper Orthogonal Decomposition provides an optimal linear representation under 
 
 Consequently, increasing the number of POD modes does not necessarily lead to sufficient improvements in local reconstruction accuracy.
 
+![POD errors with regard to the number of modes](../figures/enc-dec_T.png)
+
+*Evolution of the distribution of maximum absolute reconstruction errors
+for linear POD with regard to the number of POD modes*
+
 To address this limitation, a **nonlinear dimensionality reduction approach based on autoencoders** was investigated.
 
 Unlike POD, which projects the data onto a linear subspace, autoencoders learn nonlinear transformations through neural networks.
@@ -21,7 +26,7 @@ An autoencoder consists of two components:
 - **Encoder:** Compresses the original high-dimensional physical field into a low-dimensional latent representation.
 - **Decoder:** Reconstructs the original physical field from its latent representation.
 
-In this study, the autoencoder was applied to temperature fields represented on a common reference mesh containing **13,125 nodes**.
+In this study, the autoencoder was applied to temperature fields represented on the common reference mesh.
 
 The network was designed to learn a compact representation of these fields while preserving both their overall spatial behavior and their localized thermal structures.
 
