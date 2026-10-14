@@ -1,6 +1,6 @@
-## 7. Conclusions & Future Research Directions
+## Conclusions & Future Research Directions
 
-### 7.1. Conclusions
+### 1. Conclusions
 
 This research project investigated the development and evaluation of **Machine Learning-based surrogate models** for approximating high-dimensional physical fields obtained from computationally expensive finite element simulations.
 
@@ -24,7 +24,7 @@ Overall, the project demonstrated the potential of reduced-order Machine Learnin
 
 Although the investigated approaches provided encouraging results, **the targeted level of prediction accuracy was not fully achieved**, particularly for physically critical regions.
 
-### 7.2. Future Research Directions
+### 2. Future Research Directions
 
 The limitations identified throughout this study suggest several directions for further investigation.
 
@@ -60,7 +60,7 @@ Rather than reconstructing the entire computational domain with uniform importan
 
 Developing region-aware surrogate models or localized representations could improve prediction accuracy where it is most relevant for the underlying physical application.
 
-### 7.3. Final Perspective
+### 3. Final Perspective
 
 This project illustrates the importance of considering the entire surrogate modeling pipeline rather than focusing exclusively on the regression algorithm.
 
