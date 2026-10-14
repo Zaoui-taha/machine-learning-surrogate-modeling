@@ -99,7 +99,7 @@ with the academic requirements of my institution.
 
 The complete report is available here:
 
-[View Full Research Report (French, PDF)](report/internship_research_report_fr.pdf)
+[View Full Research Report (French, PDF)](Report/Report.pdf)
 
 Detailed scientific documentation is provided in English
 in the `docs/` directory.
