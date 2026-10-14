@@ -134,6 +134,14 @@ Additionally, both methods performed slightly better on training data than on un
 
 These observations indicate that nonlinear dimensionality reduction can improve local reconstruction quality, but does not completely eliminate the difficulty of representing strongly localized phenomena.
 
+
+### POD vs. Autoencoder Reconstruction
+
+![POD and Autoencoder reconstruction errors](../figures/AEvsPOD.png)
+
+*Distribution of maximum absolute reconstruction errors
+for linear POD and nonlinear autoencoder representations.*
+
 ### 7. Integration into the MMGP Framework
 
 The optimized autoencoder was subsequently integrated into the surrogate modeling pipeline.
