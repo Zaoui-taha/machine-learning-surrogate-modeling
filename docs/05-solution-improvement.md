@@ -4,9 +4,7 @@
 
 The previous experiments highlighted an important limitation of POD-based surrogate modeling: although the dominant spatial structures were accurately reconstructed, significant errors persisted in regions characterized by strong localized variations.
 
-Proper Orthogonal Decomposition provides an optimal linear representation under a global reconstruction criterion. However, physically important localized structures may contribute relatively little to the overall variance of the data.
-
-Consequently, increasing the number of POD modes does not necessarily lead to sufficient improvements in local reconstruction accuracy.
+Proper Orthogonal Decomposition provides an optimal linear representation under a global reconstruction criterion. However, physically important localized structures may contribute relatively little to the overall variance of the data. Consequently, increasing the number of POD modes does not necessarily lead to significant improvements in local reconstruction accuracy. As illustrated in *Figure 1*, the maximum reconstruction error on the test set eventually plateaus at a relatively high value, despite the increasing number of retained POD modes.
 
 <p align="center">
   <img src="../figures/err_max_evol_T.png"
@@ -15,7 +13,7 @@ Consequently, increasing the number of POD modes does not necessarily lead to su
 </p>
 
 <p align="center">
-  <em>Figure 2. Evolution of the distribution of maximum absolute reconstruction errors
+  <em>Figure 1. Evolution of the distribution of maximum absolute reconstruction errors
 for linear POD with regard to the number of POD modes.</em>
 </p>
 
@@ -26,39 +24,30 @@ for linear POD with regard to the number of POD modes.</em>
 </p>
 
 <p align="center">
-  <em>Figure 1. Evolution of the residuals field with regard to the number of the POD modes for a simulation in the test set.</em>
+  <em>Figure 2. Evolution of the residuals field with regard to the number of the POD modes for a simulation in the test set.</em>
 </p>
 
 
-To address this limitation, a **nonlinear dimensionality reduction approach based on autoencoders** was investigated.
+To address this limitation, a **nonlinear dimensionality reduction approach based on autoencoders** was investigated. The objective was to obtain a more expressive low-dimensional representation of the temperature fields while reducing the largest local reconstruction errors.
 
 Unlike POD, which projects the data onto a linear subspace, autoencoders learn nonlinear transformations through neural networks.
 
-The objective was to obtain a more expressive low-dimensional representation of the temperature fields while reducing the largest local reconstruction errors.
-
 ### 2. Autoencoder-Based Dimensionality Reduction
 
-In this study, the autoencoder was applied to temperature fields represented on the common reference mesh.
-
-The network was designed to learn a compact representation of these fields while preserving both their overall spatial behavior and their localized thermal structures.
-
+In this study, the autoencoder is applied to temperature fields represented on the common reference mesh. The network is designed to learn a compact representation of these fields while preserving both their overall spatial behavior and their localized thermal structures.
 The resulting latent variables could subsequently replace the POD coefficients as prediction targets for Gaussian Process Regression.
 
 ### 3. Reconstruction Loss and Local Error Penalization
 
-A central challenge in training the autoencoder was the selection of an appropriate reconstruction loss function.
+A central challenge in training the autoencoder is the selection of an appropriate reconstruction loss function.
 
 **Initial approach: Mean Squared Error**
 
-The first experiments used the conventional Mean Squared Error (MSE), which measures the average squared difference between the reconstructed and reference fields.
-
-Although MSE is effective in capturing global structures, it does not explicitly prioritize the largest localized errors.
-
-A model can therefore achieve a relatively low MSE while producing substantial errors in small but physically critical regions.
+The first experiments used the conventional Mean Squared Error (MSE), which measures the average squared difference between the reconstructed and reference fields. Although MSE is effective in capturing global structures, it does not explicitly prioritize the largest localized errors. A model can therefore achieve a relatively low MSE while producing substantial errors in critical regions.
 
 **Proposed approach: Hybrid Reconstruction Loss**
 
-To address this issue, a hybrid loss function was introduced, combining:
+To address this issue, we define a hybrid loss function, combining:
 
 1. A global MSE reconstruction term.
 2. An additional penalty targeting large local reconstruction errors.
@@ -67,14 +56,14 @@ The objective can be expressed as:
 
 **Total Loss = MSE + λ × Local Error Penalty**
 
-The local penalty was constructed using a smooth LogSumExp-based approximation of the maximum absolute reconstruction error, allowing gradient-based optimization.
+The local penalty is constructed using a smooth LogSumExp-based approximation of the maximum absolute reconstruction error, allowing gradient-based optimization.
 
 Two parameters control this formulation:
 
 - **λ:** Controls the importance assigned to the local error penalty.
 - **α:** Controls the smooth approximation of the maximum absolute error.
 
-The values selected empirically for the experiments were:
+The values selected empirically for the experiments are:
 
 - **λ = 5**
 - **α = 10**
@@ -83,9 +72,7 @@ This loss formulation aims to balance global reconstruction accuracy with improv
 
 ### 4. Architecture Optimization and Activation Function Selection
 
-The performance of the autoencoder depends strongly on architectural and training hyperparameters.
-
-Several configurations were investigated by varying:
+The performance of the autoencoder depends strongly on architectural and training hyperparameters. Several configurations are investigated by varying:
 
 - Latent space dimension.
 - Number of hidden layers.
@@ -103,11 +90,11 @@ Four activation functions were evaluated:
 - Tanh
 - Sigmoid
 
-The initial experiments used MSE as the reconstruction objective.
+The initial experiments use MSE as the reconstruction objective.
 
 Among the tested activation functions, **ELU consistently achieved the lowest validation errors**.
 
-Consequently, ELU was retained for the subsequent experiments.
+ADD FIGURE
 
 However, this initial MSE-based approach did not sufficiently improve local reconstruction accuracy compared with POD, motivating the introduction of the hybrid loss function.
 
