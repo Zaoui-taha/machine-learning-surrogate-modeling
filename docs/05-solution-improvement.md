@@ -8,8 +8,8 @@ Proper Orthogonal Decomposition provides an optimal linear representation under 
 
 <p align="center">
   <img src="../figures/err_max_evol_T.png"
-       alt="POD errors with regard to the number of modes"
-       width="450">
+       alt="Loss function"
+       width="400">
 </p>
 
 <p align="center">
@@ -90,52 +90,53 @@ Four activation functions were evaluated:
 - Tanh
 - Sigmoid
 
-The initial experiments use MSE as the reconstruction objective.
+The initial experiments use MSE as the reconstruction objective. Among the tested activation functions, **ELU consistently achieves the lowest validation errors**.
 
-Among the tested activation functions, **ELU consistently achieved the lowest validation errors**.
+<p align="center">
+  <img src="../figures/activation_comparison.png"
+       alt="Activation function"
+       width="400">
+</p>
 
-ADD FIGURE
+<p align="center">
+  <em>Figure 3. Comparison of the validation error for the different activation values.</em>
+</p>
 
-However, this initial MSE-based approach did not sufficiently improve local reconstruction accuracy compared with POD, motivating the introduction of the hybrid loss function.
+However, this initial MSE-based approach does not sufficiently improve local reconstruction accuracy compared with POD, motivating the introduction of the hybrid loss function.
 
 ### 5. Optimizing the Autoencoder for Local Reconstruction
 
-A second experimental investigation focused on reducing the maximum absolute reconstruction error using the hybrid loss.
+A second experimental investigation focuses on reducing the maximum absolute reconstruction error using the hybrid loss. A randomized hyperparameter search is conducted to study the influence of network depth and latent space dimension.
 
-A randomized hyperparameter search was conducted to study the influence of network depth and latent space dimension.
+The experiments reveal that increasing network depth did not systematically improve performance. In particular, architectures containing six or seven hidden layers produced higher local reconstruction errors than shallower alternatives. The *Figure 4*
 
-The experiments revealed that increasing network depth did not systematically improve performance.
+<p align="center">
+  <img src="../figures/Linf_encoders.png"
+       alt="Hyperparameters"
+       width="450">
+</p>
 
-In particular, architectures containing six or seven hidden layers produced higher local reconstruction errors than shallower alternatives.
+<p align="center">
+  <em>Figure 4. Results of the randomized hyperparameters.</em>
+</p>
 
 Among the evaluated configurations, the best results were obtained using **three hidden layers and a latent dimension of 11**.
 
-The decoder reconstructs the temperature field from the resulting 11-dimensional latent representation.
+The decoder reconstructs the temperature field from the resulting 11-dimensional latent representation.  The following figure illustrates the convergence of the selected autoencoder during training, showing the evolution of the total loss function and its individual components over successive epochs.
 
-This configuration achieved a mean maximum absolute reconstruction error of approximately **13°C on the validation dataset**.
+<p align="center">
+  <img src="../figures/hybrid_loss_decomposition.png"
+       alt="Hyperparameters"
+       width="450">
+</p>
 
-The training curves showed that the global MSE decreased rapidly during the first epochs, while the local error penalty continued to drive improvements during later training stages.
-
-This behavior highlights the contribution of the hybrid loss in explicitly targeting the largest reconstruction errors.
+<p align="center">
+  <em>Figure 5. Evolution of the hybrid training loss for the selected autoencoder architecture. The total loss is decomposed into the global MSE reconstruction term and the weighted LogSumExp penalty targeting large local errors.</em>
+</p>
 
 ### 6. Reconstruction Performance: Autoencoder vs. POD
 
-After selecting the autoencoder architecture, its reconstruction performance was compared with the linear POD representation.
-
-The comparison focused on the distribution of maximum absolute reconstruction errors across training and test simulations.
-
-The nonlinear autoencoder generally achieved lower mean maximum reconstruction errors than POD on both datasets.
-
-This improvement suggests that the learned nonlinear latent representation was better suited to capturing certain localized thermal structures.
-
-However, some configurations continued to exhibit relatively large reconstruction errors.
-
-Additionally, both methods performed slightly better on training data than on unseen test simulations.
-
-These observations indicate that nonlinear dimensionality reduction can improve local reconstruction quality, but does not completely eliminate the difficulty of representing strongly localized phenomena.
-
-
-### POD vs. Autoencoder Reconstruction
+After selecting the autoencoder architecture, its reconstruction performance is then compared with the linear POD representation. The comparison focuses on the distribution of maximum absolute reconstruction errors across training and test simulations.
 
 <p align="center">
   <img src="../figures/AEvsPOD.png"
@@ -144,40 +145,43 @@ These observations indicate that nonlinear dimensionality reduction can improve 
 </p>
 
 <p align="center">
-  <em>Figure 3. Distribution of maximum absolute reconstruction errors
-for linear POD and nonlinear autoencoder representations..</em>
+  <em>Figure 6. Distribution of maximum absolute reconstruction errors
+for linear POD and nonlinear autoencoder representations.</em>
 </p>
 
+The nonlinear autoencoder generally achieves lower mean maximum reconstruction errors than POD on both datasets. This improvement suggests that the learned nonlinear latent representation is better suited to capturing certain localized thermal structures. However, some configurations continue to exhibit relatively large reconstruction errors. Additionally, both methods perform slightly better on training data than on unseen test simulations.
+
+These observations indicate that nonlinear dimensionality reduction can improve local reconstruction quality, but does not completely eliminate the difficulty of representing strongly localized phenomena.
 
 ### 7. Integration into the MMGP Framework
 
-The optimized autoencoder was subsequently integrated into the surrogate modeling pipeline.
+The optimized autoencoder is subsequently integrated into the surrogate modeling pipeline. The resulting model, referred to as **Nonlinear MMGP**, replaces the POD-based representation of the temperature field with the learned nonlinear latent representation.
 
-The resulting model, referred to as **Nonlinear MMGP**, replaced the POD-based representation of the temperature field with the learned nonlinear latent representation.
-
-The workflow consisted of:
+The workflow consists of:
 
 1. Compressing the temperature fields using the trained autoencoder.
 2. Training Gaussian Process models to predict the latent coordinates from the eight physical and geometrical input parameters.
 3. Reconstructing the predicted temperature fields using the trained decoder.
 
-The input representation was based on the parametrized MMGP formulation, which had demonstrated better predictive performance than classical MMGP in the previous experiments.
+The input representation is based on the parametrized MMGP formulation, which had demonstrated better predictive performance than classical MMGP in the previous experiments.
 
 **Comparison with POD-Based MMGP**
 
-The nonlinear formulation was evaluated against the parametrized POD-based MMGP using the same global and local prediction metrics.
+The nonlinear formulation is evaluated against the parametrized POD-based MMGP using the same global and local prediction metrics.
 
-Both approaches reproduced the overall temperature distribution and the location of the hottest regions.
+<p align="center">
+  <img src="../figures/All_models.png"
+       alt="3 models compared"
+       width="750">
+</p>
 
-For the representative simulation examined, Nonlinear MMGP produced smaller local residuals in regions characterized by strong thermal gradients.
+<p align="center">
+  <em>Figure 7. Comparison of the three models.</em>
+</p>
 
-However, the nonlinear formulation also generated less spatially regular error patterns.
+Both approaches reproduce the overall temperature distribution and the location of the hottest regions. For the representative simulation examined, Nonlinear MMGP produces smaller local residuals in regions characterized by strong thermal gradients. However, the nonlinear formulation also generates less spatially regular error patterns. Across the full test dataset, the two models achieve comparable global prediction accuracy, while nonlinear MMGP exhibits a lower mean maximum absolute error.
 
-Across the full test dataset, the two models achieved comparable global prediction accuracy, while Nonlinear MMGP exhibited a lower mean maximum absolute error.
-
-Nevertheless, the dispersion intervals of the evaluation metrics overlapped substantially, preventing a clear conclusion that the nonlinear formulation consistently outperformed the parametrized POD-based approach.
-
-Furthermore, **mean maximum prediction errors remained above 30°C**, which was still insufficient for the accuracy requirements of the industrial application.
+Nevertheless, the dispersion intervals of the evaluation metrics overlap substantially, preventing a clear conclusion that the nonlinear formulation consistently outperform the parametrized POD-based approach. Furthermore, **mean maximum prediction errors remained above 30°C**, which is still insufficient for the accuracy requirements of the industrial application.
 
 ### 8. Discussion and Main Findings
 
