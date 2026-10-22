@@ -6,7 +6,7 @@ Selecting an appropriate surrogate modeling approach requires accounting for bot
 
 In this study, four main requirements guided the selection of the modeling framework:
 
-1. **Preservation of spatial regularity:** The target quantities are continuous physical fields, including temperature, pressure, and velocity. The surrogate model should preserve their spatial coherence and avoid introducing artificial discontinuities or uncorrelated prediction errors between neighboring mesh nodes.
+1. **Preservation of spatial regularity:** The target quantities are smooth physical fields, including temperature, pressure, and velocity. The surrogate model should preserve their spatial coherence and avoid introducing artificial discontinuities or uncorrelated prediction errors between neighboring mesh nodes.
 
 2. **Accurate interpolation of deterministic simulations:** The finite element solver produces deterministic outputs for fixed input parameters. Therefore, interpolation-based learning approaches are particularly relevant for approximating these numerical solutions.
 
@@ -28,7 +28,7 @@ Linear regression provides a simple and computationally inexpensive modeling app
 
 Neural networks, particularly Convolutional Neural Networks (CNNs) and Graph Neural Networks (GNNs), have been investigated in the literature for learning complex physical relationships and approximating numerical solutions.
 
-Although these models offer considerable representational flexibility, several challenges were identified in relation to the requirements of this study:
+Although these models offer considerable representational flexibility, several challenges were identified in relation to the requirements of this study :
 
 - Potentially substantial training data requirements.
 - Computational and memory costs associated with large meshes.
@@ -69,7 +69,7 @@ Beyond the choice of regression model, two additional challenges must be address
 
 The finite element solutions are defined on meshes that may differ in geometry, discretization, and number of nodes.
 
-Consequently, the physical fields cannot be directly represented as consistent outputs for conventional supervised learning.
+Consequently, the physical fields cannot be directly represented as consistent outputs for conventional supervised learning; because they are not comparable.
 
 A mesh standardization procedure is therefore required to map the different simulation configurations onto a common reference domain.
 
@@ -97,7 +97,7 @@ POD provides a well-established and computationally efficient starting point for
 
 Based on the literature review and the requirements identified above, the **Mesh Morphing Gaussian Process (MMGP)** framework was selected as the starting point for this study.
 
-Originally introduced by Casenave, Staber, and Roynard (NeurIPS 2023), MMGP is designed to predict physical solutions defined on computational meshes exhibiting geometrical variability.
+Originally introduced by Casenave, Staber, and Roynard [[1]](07-references.md#ref-1), MMGP is designed to predict physical solutions defined on computational meshes exhibiting geometrical variability.
 
 The framework combines three main components:
 
