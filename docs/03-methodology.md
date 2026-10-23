@@ -45,8 +45,16 @@ One of the main methodological investigations concern the choice of the referenc
 
 **Strategy A — Tutte Mapping to the Unit Disk**
 
-This approach maps each computational mesh onto a common canonical domain using Tutte-based parametrization. The unit disk provides a simple and standardized reference geometry, but the transformation may introduce substantial geometrical deformation relative to the original physical domain. In our case, the reference domain is the unit circle, as shown in the Figure 1 
+This approach maps each computational mesh onto a common canonical domain using Tutte-based parametrization. The unit disk provides a simple and standardized reference geometry, but the transformation may introduce substantial geometrical deformation relative to the original physical domain. In our case, the reference domain is the unit circle, as shown in the Figure 1 presents this domain with the reference mesh on it :
 
+<p align="center">
+  <img src="../figures/maillage cercle.png"
+       alt="Tutte reference mesh"
+       width="450">
+</p>
+<p align="center">
+  <em>Figure 1. The reference mesh in case of Tutte barycentric algorithm for mesh morphing </em>
+</p>
 
 **Strategy B — RBF Mesh Morphing to a Representative Geometry**
 
@@ -61,7 +69,6 @@ This approach uses Radial Basis Function interpolation to map the computational 
   <em>Figure 2. The RBF mesh morphing to the reference domain </em>
 </p>
 
-
 #### Reference Geometry Selection
 
 Five candidate geometries are selected from the training set and evaluated using approximately twenty representative computational meshes. The comparison focuses on criteria related to:
@@ -71,11 +78,20 @@ Five candidate geometries are selected from the training set and evaluated using
 - Preservation of physical field regularity.
 - Distortion introduced during field transport.
 
-In particular, the spatial gradients of the physical fields are examined through an H1-based seminorm to evaluate how the transformations affect their regularity. Since no candidate geometry consistently outperforms the others across all criteria, a compromise-based selection was adopted : a **median representative geometry** was retained as the reference domain for further experiments.
+In particular, the spatial gradients of the physical fields are examined through an H1-based seminorm to evaluate how the transformations affect their regularity. Since no candidate geometry consistently outperforms the others across all criteria, a compromise-based selection was adopted : a **median representative geometry** was retained as the reference domain for further experiments, the Figure 3 shows the position of the selected reference mesh in the plan of the two geometrical parameters :
+
+<p align="center">
+  <img src="../figures/median_shape.png"
+       alt="Median reference domain"
+       width="500">
+</p>
+<p align="center">
+  <em>Figure 3. The position of the selected reference mesh in the plan of the two geometrical parameters </em>
+</p>
 
 #### Comparison of the Two Morphing Strategies
 
-The unit-disk approach and the representative-geometry approach were subsequently compared in terms of physical field preservation and compatibility with dimensionality reduction. The analysis showed that both strategies provided comparable overall preservation of the transported physical information. But, a key criteria is the compressibility of the information.
+The unit-disk approach and the representative-geometry approach are subsequently compared in terms of physical field preservation and compatibility with dimensionality reduction. The analysis shows that both strategies provide comparable overall preservation of the transported physical information. But, a key criteria is the compressibility of the information.
 
 <p align="center">
   <img src="../figures/X_rbfvstutte.png"
@@ -83,7 +99,7 @@ The unit-disk approach and the representative-geometry approach were subsequentl
        width="400">
 </p>
 <p align="center">
-  <em>Figure 3. A part of the two-dimensional projections of the designs of experiments</em>
+  <em>Figure 4. The compressibility of the field of the coordinates x in both cases </em>
 </p>
 
 <p align="center">
@@ -92,58 +108,37 @@ The unit-disk approach and the representative-geometry approach were subsequentl
        width="400">
 </p>
 <p align="center">
-  <em>Figure 4. A part of the two-dimensional projections of the designs of experiments</em>
+  <em>Figure 5. The compressibility of the field of the coordinates y in both cases </em>
 </p>
 
-However, **RBF morphing toward the median reference geometry produced fields that were more efficiently compressed using POD**, particularly for the geometrical coordinate fields.
-
-This observation motivated the selection of the median reference geometry for the subsequent surrogate modeling experiments.
+**RBF morphing toward the median reference geometry produces fields that were more efficiently compressed using POD**, particularly for the geometrical coordinate fields. This observation motivates the selection of the median reference geometry for the subsequent surrogate modeling experiments.
 
 ### 4. Physical Field Transport and Interpolation
 
-Following mesh morphing, the physical fields associated with each simulation were transferred onto the transformed meshes and interpolated onto a common reference discretization.
+Following mesh morphing, the physical fields associated with each simulation are transferred onto the transformed meshes and interpolated onto a common reference discretization. This procedure provides a consistent representation of all simulation outputs, allowing comparisons between physical fields and enabling dimensionality reduction. Visual inspections are performed to verify that the interpolation and geometrical transformations preserved the main physical structures of the temperature, pressure, and velocity fields.
 
-The selected reference mesh contained **13,125 nodes**.
-
-This procedure provided a consistent representation of all simulation outputs, allowing comparisons between physical fields and enabling dimensionality reduction.
-
-Visual inspections were performed to verify that the interpolation and geometrical transformations preserved the main physical structures of the temperature, pressure, and velocity fields.
+FIGURE OF THE FIELDS AFTER THE STANDARDIZATION
 
 ### 5. Dimensionality Reduction Using POD
 
-Once the numerical fields were represented on the common reference mesh, Proper Orthogonal Decomposition was applied to reduce their dimensionality.
+Once the numerical fields are represented on the common reference mesh, Proper Orthogonal Decomposition is applied to reduce their dimensionality. 
 
-Two categories of information were compressed:
+Two categories of information are compressed:
 
 - **Geometrical information:** The spatial coordinate fields describing the original computational geometries.
 - **Physical information:** The temperature, pressure, and velocity fields obtained from the finite element simulations.
 
-The number of retained POD modes was investigated using two complementary criteria:
+The number of retained POD modes is investigated using two complementary criteria:
 
 1. Cumulative explained variance.
 2. Reconstruction error, evaluated using the Relative Root Mean Square Error (RRMSE).
 
-Although explained variance provides an initial indication of the amount of information retained, reconstruction errors were also examined to avoid selecting an insufficient number of modes.
+Although explained variance provides an initial indication of the amount of information retained, reconstruction errors are also examined to avoid selecting an insufficient number of modes.
+For the geometrical coordinate fields, **six POD modes are retained for each coordinate**, corresponding to the point beyond which the reconstruction errors and their variability tend to stabilize. The physical fields are similarly represented through reduced modal coefficients, which subsequently serve as the target outputs of the regression models.
 
-For the geometrical coordinate fields, **six POD modes were retained for each coordinate**, corresponding to the point beyond which the reconstruction errors and their variability tended to stabilize.
+### 6. Gaussian Process Surrogate Model Configurations
 
-The physical fields were similarly represented through reduced modal coefficients, which subsequently served as the target outputs of the regression models.
-
-### 6. Input Correlation Analysis
-
-Before training the surrogate models, a correlation analysis was performed to investigate potential dependencies and redundancies between geometrical descriptors.
-
-In particular, Pearson and Spearman correlation matrices were examined to assess relationships between the original geometrical parameters and the reduced POD coefficients.
-
-The analysis revealed a strong redundancy between the first reduced coefficients of the two coordinate fields.
-
-This observation motivated the removal of one redundant input variable from the geometry-based representation.
-
-The analysis also highlighted that important geometrical information was not necessarily concentrated in the first POD modes, reinforcing the need to consider more than explained variance when selecting reduced descriptors.
-
-### 7. Gaussian Process Surrogate Model Configurations
-
-Two surrogate modeling formulations were developed and compared.
+Two surrogate modeling formulations are developed and compared.
 
 **Model A — Parametrized MMGP**
 
@@ -152,24 +147,14 @@ The first formulation directly uses the eight original input parameters:
 - Six physical parameters.
 - Two explicit geometrical parameters.
 
-This representation exploits the fact that the computational geometries are fully described by a small number of known parameters.
-
-Its main advantage is a compact input space, which is particularly relevant for Gaussian Process Regression.
+This representation exploits the fact that the computational geometries are fully described by a small number of known parameters. Its main advantage is a compact input space, which is particularly relevant for Gaussian Process Regression.
 
 **Model B — Classical MMGP**
 
-The second formulation follows the original geometry-based MMGP approach more closely.
+The second formulation follows the original geometry-based MMGP approach more closely. Instead of relying directly on the explicit geometrical parameters, the model uses reduced POD coefficients of the coordinate fields to describe geometrical variability. This representation is more flexible and can potentially be extended to geometries without an explicit low-dimensional parametrization.
 
-Instead of relying directly on the explicit geometrical parameters, the model uses reduced POD coefficients of the coordinate fields to describe geometrical variability.
+For both formulations, Gaussian Process models are trained to predict the reduced coefficients of the physical quantities of interest.
 
-This representation is more flexible and can potentially be extended to geometries without an explicit low-dimensional parametrization.
+A **Matérn 5/2 covariance kernel** waiss adopted for the regression models. 
 
-For both formulations, Gaussian Process models were trained to predict the reduced coefficients of the physical quantities of interest.
-
-A **Matérn 5/2 covariance kernel** was adopted for the regression models.
-
-Each output modal coefficient was predicted independently, and the corresponding physical fields were reconstructed using the POD basis.
-
-The two formulations were subsequently evaluated to investigate the influence of geometrical representation on prediction accuracy.
-
-The comparative results and limitations of these models are discussed in the following section.
+Each output modal coefficient is predicted independently, and the corresponding physical fields are reconstructed using the POD basis. The two formulations are subsequently evaluated to investigate the influence of geometrical representation on prediction accuracy. The comparative results and limitations of these models are discussed in the following section.
