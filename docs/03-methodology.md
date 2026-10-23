@@ -45,11 +45,22 @@ One of the main methodological investigations concern the choice of the referenc
 
 **Strategy A — Tutte Mapping to the Unit Disk**
 
-This approach maps each computational mesh onto a common canonical domain using Tutte-based parametrization. The unit disk provides a simple and standardized reference geometry, but the transformation may introduce substantial geometrical deformation relative to the original physical domain. In our case, the reference domain is the unit circle.
+This approach maps each computational mesh onto a common canonical domain using Tutte-based parametrization. The unit disk provides a simple and standardized reference geometry, but the transformation may introduce substantial geometrical deformation relative to the original physical domain. In our case, the reference domain is the unit circle, as shown in the Figure 1 
+
 
 **Strategy B — RBF Mesh Morphing to a Representative Geometry**
 
 This approach uses Radial Basis Function interpolation to map the computational meshes toward a reference domain selected from the available simulation geometries. By choosing a geometrically representative domain, the transformation aims to limit geometrical distortion and preserve the spatial organization of the physical fields.
+
+<p align="center">
+  <img src="../figures/rbf_mm.png"
+       alt="Mesh Morphing by RBF"
+       width="650">
+</p>
+<p align="center">
+  <em>Figure 2. The RBF mesh morphing to the reference domain </em>
+</p>
+
 
 #### Reference Geometry Selection
 
@@ -72,7 +83,7 @@ The unit-disk approach and the representative-geometry approach were subsequentl
        width="400">
 </p>
 <p align="center">
-  <em>Figure 1. A part of the two-dimensional projections of the designs of experiments</em>
+  <em>Figure 3. A part of the two-dimensional projections of the designs of experiments</em>
 </p>
 
 <p align="center">
@@ -81,7 +92,7 @@ The unit-disk approach and the representative-geometry approach were subsequentl
        width="400">
 </p>
 <p align="center">
-  <em>Figure 1. A part of the two-dimensional projections of the designs of experiments</em>
+  <em>Figure 4. A part of the two-dimensional projections of the designs of experiments</em>
 </p>
 
 However, **RBF morphing toward the median reference geometry produced fields that were more efficiently compressed using POD**, particularly for the geometrical coordinate fields.
