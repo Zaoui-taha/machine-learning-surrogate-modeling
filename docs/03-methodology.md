@@ -1,91 +1,88 @@
 ## Proposed Methodology & Experimental Design
 
-The development of the surrogate model involved several stages, from experimental design and finite element data generation to mesh standardization, dimensionality reduction, and Gaussian Process Regression.
+The development of the surrogate model involves several stages, from experimental design and finite element data generation to mesh standardization, dimensionality reduction, and Gaussian Process Regression.
 
-Particular attention was given to the methodological choices affecting the quality of the physical field representations and the predictive performance of the surrogate models.
+Particular attention is given to the methodological choices affecting the quality of the physical field representations and the predictive performance of the surrogate models.
 
 ### 1. Input Parameters and Experimental Design
 
-The numerical model depends on a set of physical and geometrical parameters describing the manufacturing process.
-
-For this study, **eight input parameters** were considered:
+The numerical model depends on a set of physical and geometrical parameters describing the manufacturing process. For this study, **eight input parameters** are considered:
 
 - **Six physical parameters** governing the behavior of the material and the physical conditions of the process.
 - **Two geometrical parameters** controlling the shape of the computational domain.
 
-The remaining parameters were held constant throughout the experiments.
+The remaining parameters are held constant throughout the experiments.
 
-Because generating high-fidelity simulations is computationally expensive, an efficient sampling strategy was required to construct a representative training dataset.
-
-A **Latin Hypercube Sampling (LHS) design with optimized discrepancy** was selected to improve the coverage of the multidimensional parameter space.
-
-The experimental dataset consisted of:
+Because generating high-fidelity simulations is computationally expensive, an efficient sampling strategy is required to construct a representative training dataset. A **Latin Hypercube Sampling (LHS) design with optimized discrepancy** is selected to improve the coverage of the multidimensional parameter space. The experimental dataset consists of:
 
 - **350 training simulations**
 - **25 independent test simulations**
 
-The training and test sets were generated using separate experimental designs to promote adequate coverage of the parameter space in both datasets.
+The training and test sets are generated using separate experimental designs to promote adequate coverage of the parameter space in both datasets. The resulting samples are inspected through their marginal distributions and two-dimensional projections to assess their spatial distribution across the input domain. The Figure 1 presents a part of these projections :
 
-The resulting samples were inspected through their marginal distributions and two-dimensional projections to assess their spatial distribution across the input domain.
+<p align="center">
+  <img src="../figures/plan_d'xpériences.png"
+       alt="Design of experiments"
+       width="580">
+</p>
+<p align="center">
+  <em>Figure 1. A part of the two-dimensional projections of the designs of experiments</em>
+</p>
 
 ### 2. High-Fidelity Simulation Data
 
-For each sampled parameter configuration, a finite element simulation was performed to compute the corresponding physical fields.
-
-The quantities of interest included:
+For each sampled parameter configuration, a finite element simulation is performed to compute the corresponding physical fields. The quantities of interest include :
 
 - Temperature fields
 - Pressure fields
 - Velocity fields
 
-These numerical solutions provided the reference data for training and evaluating the surrogate models.
-
-However, the simulations were performed on geometrically varying computational domains, resulting in meshes with different spatial discretizations.
-
-A geometrical standardization procedure was therefore required before applying dimensionality reduction and supervised learning.
+These numerical solutions provide the reference data for training and evaluating the surrogate models. However, the simulations are performed on geometrically varying computational domains, resulting in meshes with different spatial discretizations. A geometrical standardization procedure is therefore required before applying dimensionality reduction and supervised learning.
 
 ### 3. Mesh Morphing Strategies and Reference Mesh Selection
 
-One of the main methodological investigations concerned the choice of the reference domain used to standardize the computational meshes.
-
-Two strategies were considered:
+One of the main methodological investigations concern the choice of the reference domain used to standardize the computational meshes. Two strategies are considered:
 
 **Strategy A — Tutte Mapping to the Unit Disk**
 
-This approach maps each computational mesh onto a common canonical domain using Tutte-based parametrization.
-
-The unit disk provides a simple and standardized reference geometry, but the transformation may introduce substantial geometrical deformation relative to the original physical domain.
+This approach maps each computational mesh onto a common canonical domain using Tutte-based parametrization. The unit disk provides a simple and standardized reference geometry, but the transformation may introduce substantial geometrical deformation relative to the original physical domain. In our case, the reference domain is the unit circle.
 
 **Strategy B — RBF Mesh Morphing to a Representative Geometry**
 
-This approach uses Radial Basis Function interpolation to map the computational meshes toward a reference domain selected from the available simulation geometries.
-
-By choosing a geometrically representative domain, the transformation aims to limit geometrical distortion and preserve the spatial organization of the physical fields.
+This approach uses Radial Basis Function interpolation to map the computational meshes toward a reference domain selected from the available simulation geometries. By choosing a geometrically representative domain, the transformation aims to limit geometrical distortion and preserve the spatial organization of the physical fields.
 
 #### Reference Geometry Selection
 
-Several candidate reference domains were evaluated through a quantitative comparison.
-
-Five candidate geometries were selected from the training set and evaluated using approximately twenty representative computational meshes.
-
-The comparison focused on criteria related to:
+Five candidate geometries are selected from the training set and evaluated using approximately twenty representative computational meshes. The comparison focuses on criteria related to:
 
 - Preservation of geometrical properties.
 - Quality of the transformed meshes.
 - Preservation of physical field regularity.
 - Distortion introduced during field transport.
 
-In particular, the spatial gradients of the physical fields were examined through an H1-based seminorm to evaluate how the transformations affected their regularity.
-
-Since no candidate geometry consistently outperformed the others across all criteria, a compromise-based selection was adopted.
-
-A **median representative geometry** was retained as the reference domain for further experiments.
+In particular, the spatial gradients of the physical fields are examined through an H1-based seminorm to evaluate how the transformations affect their regularity. Since no candidate geometry consistently outperforms the others across all criteria, a compromise-based selection was adopted : a **median representative geometry** was retained as the reference domain for further experiments.
 
 #### Comparison of the Two Morphing Strategies
 
-The unit-disk approach and the representative-geometry approach were subsequently compared in terms of physical field preservation and compatibility with dimensionality reduction.
+The unit-disk approach and the representative-geometry approach were subsequently compared in terms of physical field preservation and compatibility with dimensionality reduction. The analysis showed that both strategies provided comparable overall preservation of the transported physical information. But, a key criteria is the compressibility of the information.
 
-The analysis showed that both strategies provided comparable overall preservation of the transported physical information.
+<p align="center">
+  <img src="../figures/X_rbfvstutte.png"
+       alt="Compressibility of X"
+       width="400">
+</p>
+<p align="center">
+  <em>Figure 1. A part of the two-dimensional projections of the designs of experiments</em>
+</p>
+
+<p align="center">
+  <img src="../figures/y_rbfvstutte.png"
+       alt="Compressibility of Y"
+       width="400">
+</p>
+<p align="center">
+  <em>Figure 1. A part of the two-dimensional projections of the designs of experiments</em>
+</p>
 
 However, **RBF morphing toward the median reference geometry produced fields that were more efficiently compressed using POD**, particularly for the geometrical coordinate fields.
 
