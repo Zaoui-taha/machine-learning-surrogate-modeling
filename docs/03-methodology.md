@@ -26,7 +26,7 @@ The training and test sets are generated using separate experimental designs to 
        width="580">
 </p>
 <p align="center">
-  <em>Figure 1. A part of the two-dimensional projections of the designs of experiments</em>
+  <em> Figure 1. A part of the two-dimensional projections of the designs of experiments</em>
 </p>
 
 ### 2. High-Fidelity Simulation Data
@@ -50,10 +50,10 @@ This approach maps each computational mesh onto a common canonical domain using 
 <p align="center">
   <img src="../figures/maillage cercle.png"
        alt="Tutte reference mesh"
-       width="450">
+       width="370">
 </p>
 <p align="center">
-  <em>Figure 1. The reference mesh in case of Tutte barycentric algorithm for mesh morphing </em>
+  <em> Figure 2. The reference mesh in case of Tutte barycentric algorithm for mesh morphing </em>
 </p>
 
 **Strategy B — RBF Mesh Morphing to a Representative Geometry**
@@ -66,7 +66,7 @@ This approach uses Radial Basis Function interpolation to map the computational 
        width="650">
 </p>
 <p align="center">
-  <em>Figure 2. The RBF mesh morphing to the reference domain </em>
+  <em> Figure 3. The RBF mesh morphing to the reference domain </em>
 </p>
 
 #### Reference Geometry Selection
@@ -83,10 +83,10 @@ In particular, the spatial gradients of the physical fields are examined through
 <p align="center">
   <img src="../figures/median_shape.png"
        alt="Median reference domain"
-       width="500">
+       width="450">
 </p>
 <p align="center">
-  <em>Figure 3. The position of the selected reference mesh in the plan of the two geometrical parameters </em>
+  <em> Figure 4. The position of the selected reference mesh in the plan of the two geometrical parameters </em>
 </p>
 
 #### Comparison of the Two Morphing Strategies
@@ -99,7 +99,7 @@ The unit-disk approach and the representative-geometry approach are subsequently
        width="400">
 </p>
 <p align="center">
-  <em>Figure 4. The compressibility of the field of the coordinates x in both cases </em>
+  <em> Figure 5. The compressibility of the field of the coordinates x in both cases </em>
 </p>
 
 <p align="center">
@@ -108,7 +108,7 @@ The unit-disk approach and the representative-geometry approach are subsequently
        width="400">
 </p>
 <p align="center">
-  <em>Figure 5. The compressibility of the field of the coordinates y in both cases </em>
+  <em> Figure 6. The compressibility of the field of the coordinates y in both cases </em>
 </p>
 
 **RBF morphing toward the median reference geometry produces fields that were more efficiently compressed using POD**, particularly for the geometrical coordinate fields. This observation motivates the selection of the median reference geometry for the subsequent surrogate modeling experiments.
@@ -117,7 +117,14 @@ The unit-disk approach and the representative-geometry approach are subsequently
 
 Following mesh morphing, the physical fields associated with each simulation are transferred onto the transformed meshes and interpolated onto a common reference discretization. This procedure provides a consistent representation of all simulation outputs, allowing comparisons between physical fields and enabling dimensionality reduction. Visual inspections are performed to verify that the interpolation and geometrical transformations preserved the main physical structures of the temperature, pressure, and velocity fields.
 
-FIGURE OF THE FIELDS AFTER THE STANDARDIZATION
+<p align="center">
+  <img src="../figures/after_mm_T,P,V.png"
+       alt="Common representation"
+       width="730">
+</p>
+<p align="center">
+  <em> Figure 7. The resulting fields with the common representation on the reference mesh </em>
+</p>
 
 ### 5. Dimensionality Reduction Using POD
 
