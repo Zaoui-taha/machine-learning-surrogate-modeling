@@ -154,37 +154,31 @@ However, the greater flexibility of the classical MMGP formulation remains poten
 
 The relatively weak predictive performance of the classical MMGP motivates an additional investigation into the relevance and redundancy of its input variables.
 
-A feature importance analysis based on **SHAP (SHapley Additive exPlanations)** is conducted to estimate the contribution of each input variable to the prediction of individual POD coefficients.
-
-The analysis considers the physical parameters and the reduced geometrical coordinates.
-
-Rather than selecting features using SHAP importance alone, a progressive feature selection procedure is implemented.
-
-Geometrical descriptors are introduced according to their importance ranking, and the regression models are retrained to evaluate the influence of input dimensionality on predictive performance.
-
-An initial reduced model containing **14 input variables**, including six physical parameters and eight selected geometrical descriptors, is retained.
-
-A subsequent robustness evaluation on an additional dataset reveals that two geometrical descriptors, **X̃₅** and **X̃₆**, negatively affect the overall generalization performance.
-
-An ablation study is therefore performed by removing these descriptors individually and jointly.
-
-The following figure summarizes the effect of the ablation study on the predictive performance of the model.
+A feature importance analysis based on **SHAP (SHapley Additive exPlanations)** is conducted to estimate the contribution of each input variable to the prediction of individual POD coefficients. The analysis considers the physical parameters and the reduced geometrical coordinates. Rather than selecting features using SHAP importance alone, a progressive feature selection procedure is implemented. Geometrical descriptors are introduced according to their importance ranking, and the regression models are retrained to evaluate the influence of input dimensionality on predictive performance.
 
 <p align="center">
-  <img src="../figures/shap_ablation_study.png"
-       alt="Ablation study based on SHAP-selected variables"
+  <img src="../figures/shape_pod_T.png"
+       alt="Shape for temperature POD modes"
        width="650">
 </p>
 
 <p align="center">
-  <em>Figure 5. Effect of the ablation study on model performance after removing SHAP-selected geometrical descriptors.</em>
+  <em> Figure 5. SHAP study for the POD modes of the temperature </em>
 </p>
 
-Removing both variables improves the overall robustness of the model on the additional dataset, although some individual POD coefficient predictions deteriorate.
+An initial reduced model containing **14 input variables**, including six physical parameters and eight selected geometrical descriptors, is retained. A subsequent robustness evaluation on an additional dataset reveals that two geometrical descriptors, **X̃₅** and **X̃₆**, negatively affect the overall generalization performance.
 
-This analysis reveals an important limitation of feature selection based solely on average importance scores:
+<p align="center">
+  <img src="../figures/Selection_variables.png"
+       alt="Selection of the variables"
+       width="650">
+</p>
 
-**A variable may be informative for certain outputs while simultaneously reducing the generalization performance of the overall model.**
+<p align="center">
+  <em> Figure 6. Selection of the variables according to the SHAP importance </em>
+</p>
+
+An ablation study is therefore performed by removing these descriptors individually and jointly. Removing both variables improves the overall robustness of the model on the additional dataset, although some individual POD coefficient predictions deteriorate. This analysis reveals an important limitation of feature selection based solely on average importance scores: **A variable may be informative for certain outputs while simultaneously reducing the generalization performance of the overall model.**
 
 The results emphasize the importance of combining interpretability methods with experimental validation when selecting surrogate model inputs.
 
@@ -222,7 +216,7 @@ The following figure illustrates this stabilization of the POD reconstruction er
 
 <p align="center">
   
-  <em>Figure 6. Evolution of POD reconstruction error as a function of the number of retained modes, showing the stabilization of the test error.</em>
+  <em> Figure 7. Evolution of POD reconstruction error as a function of the number of retained modes, showing the stabilization of the test error.</em>
 </p>
 
 For illustrative temperature reconstructions, local errors of approximately **20°C** persist even when a relatively large number of POD modes is retained.
