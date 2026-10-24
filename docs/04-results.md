@@ -19,38 +19,28 @@ RRMSE measures the global reconstruction error relative to the magnitude of the 
 
 **Coefficient of Determination (R²)**
 
-R² evaluates the ability of the surrogate model to reproduce the variability observed in the reference numerical solutions.
-
-Values close to 1 indicate strong agreement between predicted and reference fields.
+R² evaluates the ability of the surrogate model to reproduce the variability observed in the reference numerical solutions. Values close to 1 indicate strong agreement between predicted and reference fields.
 
 **Maximum Absolute Error**
 
-The maximum absolute error measures the largest pointwise difference between the predicted and reference fields.
-
-This metric is particularly important in the present application because localized prediction errors may remain critical even when the overall reconstruction error is relatively low.
-
-Using both global and local metrics provides a more complete assessment of surrogate model reliability.
+The maximum absolute error measures the largest pointwise difference between the predicted and reference fields. This metric is particularly important in the present application because localized prediction errors may remain critical even when the overall reconstruction error is relatively low. Using both global and local metrics provides a more complete assessment of surrogate model reliability.
 
 ### 5.2. Temperature Field Prediction
 
-Both surrogate models successfully reproduce the main spatial trends of the temperature field.
-
-In particular, the predictions capture:
+Both surrogate models successfully reproduce the main spatial trends of the temperature field. In particular, the predictions capture:
 
 - the temperature increase near the upper boundary of the computational domain,
 - the progressive temperature decrease toward the downstream region,
 - the relatively colder regions located in the central and lower parts of the domain.
 
-However, prediction errors become more pronounced in regions characterized by strong thermal gradients.
-
-For representative test simulations, local discrepancies exceed **20°C**, despite the satisfactory reproduction of the overall temperature distribution.
+However, prediction errors become more pronounced in regions characterized by strong thermal gradients. For representative test simulations, local discrepancies exceed **20°C**, despite the satisfactory reproduction of the overall temperature distribution.
 
 The parametrized MMGP formulation provides a more accurate reconstruction of local thermal structures than the classical MMGP approach.
 
 To quantify this behavior, the three evaluation metrics are compared for the temperature field in the following figure.
 
 <p align="center">
-  <img src="../figures/temperature_metrics_comparison.png"
+  <img src="../figures/Eval_Temperature.png"
        alt="Comparison of RRMSE, R2, and maximum absolute error for the temperature field"
        width="650">
 </p>
@@ -63,22 +53,12 @@ These observations highlight an important limitation: reproducing the global beh
 
 ### 5.3. Pressure Field Prediction
 
-Pressure prediction represents a particularly challenging aspect of the study.
+Pressure prediction represents a particularly challenging aspect of the study. Unlike temperature and velocity, the pressure field exhibits strongly localized variations, with significant compression occurring primarily in a narrow region between the rotating cylinders. Both models reproduce the general spatial behavior of the pressure field, but substantial prediction errors appear in the region of maximum compression. For representative simulations, local pressure errors reach approximately **100 bar**.
 
-Unlike temperature and velocity, the pressure field exhibits strongly localized variations, with significant compression occurring primarily in a narrow region between the rotating cylinders.
-
-Both models reproduce the general spatial behavior of the pressure field, but substantial prediction errors appear in the region of maximum compression.
-
-For representative simulations, local pressure errors reach approximately **100 bar**.
-
-The classical MMGP model significantly underestimates the pressure in this critical region, while the parametrized MMGP provides better predictions with smaller local residuals.
-
-Nevertheless, the remaining errors remain too large for reliable prediction of localized pressure phenomena.
-
-The following figure compares the three evaluation metrics for the pressure field.
+The classical MMGP model significantly underestimates the pressure in this critical region, while the parametrized MMGP provides better predictions with smaller local residuals. Nevertheless, the remaining errors remain too large for reliable prediction of localized pressure phenomena. The following figure compares the three evaluation metrics for the pressure field.
 
 <p align="center">
-  <img src="../figures/pressure_metrics_comparison.png"
+  <img src="../figures/Eval_pression.png"
        alt="Comparison of RRMSE, R2, and maximum absolute error for the pressure field"
        width="650">
 </p>
@@ -91,25 +71,19 @@ This result demonstrates the difficulty of learning physical fields whose behavi
 
 ### 5.4. Velocity Field Prediction
 
-The surrogate models demonstrate comparatively strong performance in predicting the velocity field.
-
-Both approaches capture the main characteristics of the flow, including:
+The surrogate models demonstrate comparatively strong performance in predicting the velocity field. Both approaches capture the main characteristics of the flow, including:
 
 - boundary-layer behavior near the rotating cylinders,
 - strong velocity gradients near the upper boundary,
 - relatively homogeneous low-velocity regions in the central domain,
 - the progressive decrease in velocity toward the outlet.
 
-Prediction residuals concentrate mainly near the cylinder boundaries and other regions exhibiting significant velocity gradients.
-
-For representative test configurations, residual magnitudes are of the order of **0.2 m/s**, which is substantially less problematic than the large localized errors observed in the pressure field.
-
-The parametrized MMGP consistently provides more accurate velocity predictions than the classical MMGP formulation.
+Prediction residuals concentrate mainly near the cylinder boundaries and other regions exhibiting significant velocity gradients. For representative test configurations, residual magnitudes are of the order of **0.2 m/s**, which is substantially less problematic than the large localized errors observed in the pressure field. The parametrized MMGP consistently provides more accurate velocity predictions than the classical MMGP formulation.
 
 The following figure compares the three evaluation metrics for the velocity field.
 
 <p align="center">
-  <img src="../figures/velocity_metrics_comparison.png"
+  <img src="../figures/Eval_vitesse.png"
        alt="Comparison of RRMSE, R2, and maximum absolute error for the velocity field"
        width="650">
 </p>
@@ -139,13 +113,13 @@ The relatively weak predictive performance of the classical MMGP motivates an ad
 A feature importance analysis based on **SHAP (SHapley Additive exPlanations)** is conducted to estimate the contribution of each input variable to the prediction of individual POD coefficients. The analysis considers the physical parameters and the reduced geometrical coordinates. Rather than selecting features using SHAP importance alone, a progressive feature selection procedure is implemented. Geometrical descriptors are introduced according to their importance ranking, and the regression models are retrained to evaluate the influence of input dimensionality on predictive performance.
 
 <p align="center">
-  <img src="../figures/shape_pod_T.png"
+  <img src="../figures/Shapley_T,P,V.png"
        alt="Shape for temperature POD modes"
        width="650">
 </p>
 
 <p align="center">
-  <em> Figure 5. SHAP study for the POD modes of the temperature </em>
+  <em> Figure 5. SHAP study for the physical fields </em>
 </p>
 
 An initial reduced model containing **14 input variables**, including six physical parameters and eight selected geometrical descriptors, is retained. A subsequent robustness evaluation on an additional dataset reveals that two geometrical descriptors, **X̃₅** and **X̃₆**, negatively affect the overall generalization performance.
