@@ -42,7 +42,7 @@ To quantify this behavior, the three evaluation metrics are compared for the tem
 <p align="center">
   <img src="../figures/Eval_Temperature.png"
        alt="Comparison of RRMSE, R2, and maximum absolute error for the temperature field"
-       width="650">
+       width="750">
 </p>
 
 <p align="center">
@@ -60,7 +60,7 @@ The classical MMGP model significantly underestimates the pressure in this criti
 <p align="center">
   <img src="../figures/Eval_pression.png"
        alt="Comparison of RRMSE, R2, and maximum absolute error for the pressure field"
-       width="650">
+       width="750">
 </p>
 
 <p align="center">
@@ -85,7 +85,7 @@ The following figure compares the three evaluation metrics for the velocity fiel
 <p align="center">
   <img src="../figures/Eval_vitesse.png"
        alt="Comparison of RRMSE, R2, and maximum absolute error for the velocity field"
-       width="650">
+       width="750">
 </p>
 
 <p align="center">
@@ -115,7 +115,7 @@ A feature importance analysis based on **SHAP (SHapley Additive exPlanations)** 
 <p align="center">
   <img src="../figures/Shapley_T,P,V.png"
        alt="Shape for temperature POD modes"
-       width="650">
+       width="610">
 </p>
 
 <p align="center">
@@ -125,9 +125,9 @@ A feature importance analysis based on **SHAP (SHapley Additive exPlanations)** 
 An initial reduced model containing **14 input variables**, including six physical parameters and eight selected geometrical descriptors, is retained. A subsequent robustness evaluation on an additional dataset reveals that two geometrical descriptors, **X̃₅** and **X̃₆**, negatively affect the overall generalization performance.
 
 <p align="center">
-  <img src="../figures/Selection_variables.png"
+  <img src="../figures/selection_variables.png"
        alt="Selection of the variables"
-       width="650">
+       width="450">
 </p>
 
 <p align="center">
@@ -140,34 +140,20 @@ The results emphasize the importance of combining interpretability methods with 
 
 ### 5.7. Investigating the Limitations of POD Reconstruction
 
-Despite the encouraging global prediction results, both surrogate models exhibit substantial errors in localized regions.
+Despite the encouraging global prediction results, both surrogate models exhibit substantial errors in localized regions. To investigate the origin of these errors, the quality of the POD representation is evaluated independently of the Gaussian Process regression stage. The physical fields are reconstructed directly from their reduced POD coefficients, and reconstruction errors are analyzed as a function of the number of retained modes. The study reveals two different behaviors :
 
-To investigate the origin of these errors, the quality of the POD representation is evaluated independently of the Gaussian Process regression stage.
+**Global Reconstruction Accuracy :** Increasing the number of POD modes progressively reduces the global RRMSE on both training and test datasets. However, the improvement becomes increasingly marginal as additional modes are included.
 
-The physical fields are reconstructed directly from their reduced POD coefficients, and reconstruction errors are analyzed as a function of the number of retained modes.
+**Local Reconstruction Accuracy :** The maximum absolute reconstruction error exhibits a different behavior.
 
-The study reveals two different behaviors.
-
-**Global Reconstruction Accuracy**
-
-Increasing the number of POD modes progressively reduces the global RRMSE on both training and test datasets.
-
-However, the improvement becomes increasingly marginal as additional modes are included.
-
-**Local Reconstruction Accuracy**
-
-The maximum absolute reconstruction error exhibits a different behavior.
-
-Although the first POD modes substantially reduce local errors, adding more modes does not consistently improve the reconstruction of strongly localized structures on unseen test simulations.
-
-In particular, the maximum error on the test dataset tends to stabilize, while the training error continues to decrease.
+Although the first POD modes substantially reduce local errors, adding more modes does not consistently improve the reconstruction of strongly localized structures on unseen test simulations. In particular, the maximum error on the test dataset tends to stabilize, while the training error continues to decrease.
 
 The following figure illustrates this stabilization of the POD reconstruction error on the test set.
 
 <p align="center">
-  <img src="../figures/pod_error_stabilization_test_set.png"
+  <img src="../figures/err_max_evol_T.png"
        alt="Stabilization of POD reconstruction error on the test set"
-       width="650">
+       width="450">
 </p>
 
 <p align="center">
@@ -175,9 +161,7 @@ The following figure illustrates this stabilization of the POD reconstruction er
   <em> Figure 7. Evolution of POD reconstruction error as a function of the number of retained modes, showing the stabilization of the test error.</em>
 </p>
 
-For illustrative temperature reconstructions, local errors of approximately **20°C** persist even when a relatively large number of POD modes is retained.
-
-These results indicate that simply increasing the number of POD modes is not sufficient to guarantee accurate reconstruction of localized physical phenomena.
+For illustrative temperature reconstructions, local errors of approximately **20°C** persist even when a relatively large number of POD modes is retained. These results indicate that simply increasing the number of POD modes is not sufficient to guarantee accurate reconstruction of localized physical phenomena.
 
 The analysis also suggests that the limitations arise not only from the regression model but from the interaction between dimensionality reduction, reconstruction, and generalization to new simulations.
 
@@ -191,6 +175,4 @@ The experimental comparison leads to several important conclusions:
 4. SHAP analysis and feature ablation highlight the importance of controlling input redundancy and evaluating generalization performance.
 5. POD-based representations effectively capture dominant spatial structures but remain limited in reproducing certain localized phenomena.
 
-These findings motivate the investigation of **nonlinear dimensionality reduction using autoencoders**, with the objective of improving the representation of physical fields and reducing errors in critical localized regions.
-
-The development and evaluation of this alternative approach are presented in the following section.
+These findings motivate the investigation of **nonlinear dimensionality reduction using autoencoders**, with the objective of improving the representation of physical fields and reducing errors in critical localized regions. The development and evaluation of this alternative approach are presented in the following section.
