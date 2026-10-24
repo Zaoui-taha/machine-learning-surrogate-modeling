@@ -120,6 +120,16 @@ The experiments reveal that increasing network depth did not systematically impr
   <em>Figure 4. Results of the randomized hyperparameters.</em>
 </p>
 
+<p align="center">
+  <img src="../figures/se_convergence.png"
+       alt="Convergence of the autoencoder"
+       width="450">
+</p>
+
+<p align="center">
+  <em> Figure 5. Convergence of the autoencoder for the train and validation sets </em>
+</p>
+
 Among the evaluated configurations, the best results were obtained using **three hidden layers and a latent dimension of 11**.
 
 The decoder reconstructs the temperature field from the resulting 11-dimensional latent representation.  The following figure illustrates the convergence of the selected autoencoder during training, showing the evolution of the total loss function and its individual components over successive epochs.
@@ -131,7 +141,7 @@ The decoder reconstructs the temperature field from the resulting 11-dimensional
 </p>
 
 <p align="center">
-  <em>Figure 5. Evolution of the hybrid training loss for the selected autoencoder architecture. The total loss is decomposed into the global MSE reconstruction term and the weighted LogSumExp penalty targeting large local errors.</em>
+  <em> Figure 6. Evolution of the hybrid training loss for the selected autoencoder architecture. The total loss is decomposed into the global MSE reconstruction term and the weighted LogSumExp penalty targeting large local errors.</em>
 </p>
 
 ### 6. Reconstruction Performance: Autoencoder vs. POD
@@ -145,7 +155,7 @@ After selecting the autoencoder architecture, its reconstruction performance is 
 </p>
 
 <p align="center">
-  <em>Figure 6. Distribution of maximum absolute reconstruction errors
+  <em> Figure 7. Distribution of maximum absolute reconstruction errors
 for linear POD and nonlinear autoencoder representations.</em>
 </p>
 
@@ -176,7 +186,7 @@ The nonlinear formulation is evaluated against the parametrized POD-based MMGP u
 </p>
 
 <p align="center">
-  <em>Figure 7. Comparison of the three models.</em>
+  <em> Figure 8. Comparison of the three models.</em>
 </p>
 
 Both approaches reproduce the overall temperature distribution and the location of the hottest regions. For the representative simulation examined, Nonlinear MMGP produces smaller local residuals in regions characterized by strong thermal gradients. However, the nonlinear formulation also generates less spatially regular error patterns. Across the full test dataset, the two models achieve comparable global prediction accuracy, while nonlinear MMGP exhibits a lower mean maximum absolute error.
@@ -197,6 +207,4 @@ The investigation of nonlinear dimensionality reduction led to several important
 
 5. **A trade-off emerged between local accuracy and spatial regularity:** The nonlinear approach reduced some localized errors but could produce less regular reconstructed fields.
 
-Overall, these experiments demonstrate the potential of combining nonlinear dimensionality reduction with Gaussian Process Regression for high-dimensional surrogate modeling.
-
-However, the remaining prediction errors indicate that further research is necessary before the approach can satisfy the precision requirements of the considered industrial application.
+Overall, these experiments demonstrate the potential of combining nonlinear dimensionality reduction with Gaussian Process Regression for high-dimensional surrogate modeling. However, the remaining prediction errors indicate that further research is necessary before the approach can satisfy the precision requirements of the considered industrial application.
