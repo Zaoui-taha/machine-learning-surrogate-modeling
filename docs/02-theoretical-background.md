@@ -100,7 +100,7 @@ The study involved:
 Figure 1 shows the evolution of the 1D heat equation solution at different time steps, highlighting the temporal dynamics of the system:
 
 <p align="center">
-  <img src="../figures/heat_equation_evolution.png"
+  <img src="../figures/heat-equation-1d-time-evolution.png"
        alt="Evolution of the 1D heat equation solution"
        width="600">
 </p>
@@ -112,7 +112,7 @@ Figure 1 shows the evolution of the 1D heat equation solution at different time 
 Figure 2 presents the selection of the POD modes based on the cumulative explained variance, demonstrating that only a limited number of modes is required to capture almost all of the information contained in the dataset.
 
 <p align="center">
-  <img src="../figures/pod_mode_selection.png"
+  <img src="../figures/heat-equation-pod-explained-variance.png"
        alt="POD mode selection based on explained variance"
        width="700">
 </p>
@@ -124,7 +124,7 @@ Figure 2 presents the selection of the POD modes based on the cumulative explain
 Figure 3 illustrates the reconstruction of the solution at a previously unseen time step using the surrogate model, allowing a direct comparison between the predicted and reference solutions.
 
 <p align="center">
-  <img src="../figures/heat_equation_reconstruction.png"
+  <img src="../figures/heat-equation-1d-surrogate-reconstruction.png"
        alt="Surrogate model reconstruction of the heat equation"
        width="450">
 </p>

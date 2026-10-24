@@ -7,8 +7,8 @@ The previous experiments highlighted an important limitation of POD-based surrog
 Proper Orthogonal Decomposition provides an optimal linear representation under a global reconstruction criterion. However, physically important localized structures may contribute relatively little to the overall variance of the data. Consequently, increasing the number of POD modes does not necessarily lead to significant improvements in local reconstruction accuracy. As illustrated in *Figure 1*, the maximum reconstruction error on the test set eventually plateaus at a relatively high value, despite the increasing number of retained POD modes.
 
 <p align="center">
-  <img src="../figures/err_max_evol_T.png"
-       alt="Loss function"
+  <img src="../figures/temperature-pod-max-error-vs-modes.png"
+       alt="Maximum temperature POD reconstruction error versus retained modes"
        width="400">
 </p>
 
@@ -18,7 +18,7 @@ for linear POD with regard to the number of POD modes.</em>
 </p>
 
 <p align="center">
-  <img src="../figures/pod_simu_6.png"
+  <img src="../figures/temperature-pod-residual-fields-vs-modes.png"
        alt="POD errors with regard to the number of modes"
        width="750">
 </p>
@@ -93,7 +93,7 @@ Four activation functions were evaluated:
 The initial experiments use MSE as the reconstruction objective. Among the tested activation functions, **ELU consistently achieves the lowest validation errors**.
 
 <p align="center">
-  <img src="../figures/activation_comparison.png"
+  <img src="../figures/autoencoder-activation-function-comparison.png"
        alt="Activation function"
        width="400">
 </p>
@@ -111,7 +111,7 @@ A second experimental investigation focuses on reducing the maximum absolute rec
 The experiments reveal that increasing network depth did not systematically improve performance. In particular, architectures containing six or seven hidden layers produced higher local reconstruction errors than shallower alternatives. The *Figure 4*
 
 <p align="center">
-  <img src="../figures/Linf_encoders.png"
+  <img src="../figures/autoencoder-architecture-max-error-comparison.png"
        alt="Hyperparameters"
        width="450">
 </p>
@@ -121,7 +121,7 @@ The experiments reveal that increasing network depth did not systematically impr
 </p>
 
 <p align="center">
-  <img src="../figures/se_convergence.png"
+  <img src="../figures/autoencoder-training-validation-convergence.png"
        alt="Convergence of the autoencoder"
        width="450">
 </p>
@@ -135,8 +135,8 @@ Among the evaluated configurations, the best results were obtained using **three
 The decoder reconstructs the temperature field from the resulting 11-dimensional latent representation.  The following figure illustrates the convergence of the selected autoencoder during training, showing the evolution of the total loss function and its individual components over successive epochs.
 
 <p align="center">
-  <img src="../figures/hybrid_loss_decomposition.png"
-       alt="Hyperparameters"
+  <img src="../figures/autoencoder-hybrid-loss-components.png"
+       alt="Hybrid loss convergence and decomposition into MSE and LogSumExp terms"
        width="450">
 </p>
 
@@ -149,7 +149,7 @@ The decoder reconstructs the temperature field from the resulting 11-dimensional
 After selecting the autoencoder architecture, its reconstruction performance is then compared with the linear POD representation. The comparison focuses on the distribution of maximum absolute reconstruction errors across training and test simulations.
 
 <p align="center">
-  <img src="../figures/AEvsPOD.png"
+  <img src="../figures/autoencoder-vs-pod-reconstruction-errors.png"
        alt="POD and Autoencoder reconstruction errors"
        width="650">
 </p>
@@ -180,7 +180,7 @@ The input representation is based on the parametrized MMGP formulation, which ha
 The nonlinear formulation is evaluated against the parametrized POD-based MMGP using the same global and local prediction metrics.
 
 <p align="center">
-  <img src="../figures/All_models.png"
+  <img src="../figures/temperature-three-surrogate-models-comparison.png"
        alt="3 models compared"
        width="750">
 </p>

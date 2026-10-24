@@ -56,19 +56,19 @@ The experimental study involved **350 training simulations and 25 independent te
 - The parametrized model achieved **R² greater than 0.95 for pressure** and close to 1 for velocity.
 - Despite strong global performance, large localized errors remained, particularly near regions of maximum pressure and temperature gradients.
 
-![Comparison of parametrized and classical MMGP for temperature](figures/Eval_Temperature.png)
+![Comparison of parametrized and classical MMGP for temperature](figures/temperature-surrogate-model-metrics.png)
 
 *Comparison of parametrized and classical MMGP models
 for temperature-field prediction
 using RRMSE, R², and maximum absolute error.*
 
-![Comparison of parametrized and classical MMGP for temperature](figures/Eval_pression.png)
+![Comparison of parametrized and classical MMGP for pressure](figures/pressure-surrogate-model-metrics.png)
 
 *Comparison of parametrized and classical MMGP models
 for pressure-field prediction
 using RRMSE, R², and maximum absolute error.*
 
-![Comparison of parametrized and classical MMGP for temperature](figures/Eval_vitesse.png)
+![Comparison of parametrized and classical MMGP for velocity](figures/velocity-surrogate-model-metrics.png)
 
 *Comparison of parametrized and classical MMGP models
 for velocity-field prediction
@@ -82,7 +82,7 @@ using RRMSE, R², and maximum absolute error.*
 
 These findings highlight an important challenge in scientific Machine Learning: **strong global predictive performance does not necessarily guarantee accurate reconstruction of localized physical phenomena.**
 
-![Comparison of three MMGP formulations](figures/All_models.png)
+![Comparison of three MMGP formulations](figures/temperature-three-surrogate-models-comparison.png)
 
 *Comparison of parametrized MMGP, classical MMGP,
 and nonlinear MMGP for temperature-field prediction.

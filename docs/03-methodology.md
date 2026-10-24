@@ -21,7 +21,7 @@ Because generating high-fidelity simulations is computationally expensive, an ef
 The training and test sets are generated using separate experimental designs to promote adequate coverage of the parameter space in both datasets. The resulting samples are inspected through their marginal distributions and two-dimensional projections to assess their spatial distribution across the input domain. The Figure 1 presents a part of these projections :
 
 <p align="center">
-  <img src="../figures/plan_d'xpériences.png"
+  <img src="../figures/training-test-design-of-experiments.png"
        alt="Design of experiments"
        width="580">
 </p>
@@ -48,7 +48,7 @@ One of the main methodological investigations concern the choice of the referenc
 This approach maps each computational mesh onto a common canonical domain using Tutte-based parametrization. The unit disk provides a simple and standardized reference geometry, but the transformation may introduce substantial geometrical deformation relative to the original physical domain. In our case, the reference domain is the unit circle, as shown in the Figure 1 presents this domain with the reference mesh on it :
 
 <p align="center">
-  <img src="../figures/maillage cercle.png"
+  <img src="../figures/tutte-unit-disk-reference-mesh.png"
        alt="Tutte reference mesh"
        width="370">
 </p>
@@ -61,7 +61,7 @@ This approach maps each computational mesh onto a common canonical domain using 
 This approach uses Radial Basis Function interpolation to map the computational meshes toward a reference domain selected from the available simulation geometries. By choosing a geometrically representative domain, the transformation aims to limit geometrical distortion and preserve the spatial organization of the physical fields.
 
 <p align="center">
-  <img src="../figures/rbf_mm.png"
+  <img src="../figures/rbf-mesh-morphing-reference-domain.png"
        alt="Mesh Morphing by RBF"
        width="650">
 </p>
@@ -81,7 +81,7 @@ Five candidate geometries are selected from the training set and evaluated using
 In particular, the spatial gradients of the physical fields are examined through an H1-based seminorm to evaluate how the transformations affect their regularity. Since no candidate geometry consistently outperforms the others across all criteria, a compromise-based selection was adopted : a **median representative geometry** was retained as the reference domain for further experiments, the Figure 3 shows the position of the selected reference mesh in the plan of the two geometrical parameters :
 
 <p align="center">
-  <img src="../figures/median_shape.png"
+  <img src="../figures/representative-median-reference-geometry.png"
        alt="Median reference domain"
        width="450">
 </p>
@@ -94,7 +94,7 @@ In particular, the spatial gradients of the physical fields are examined through
 The unit-disk approach and the representative-geometry approach are subsequently compared in terms of physical field preservation and compatibility with dimensionality reduction. The analysis shows that both strategies provide comparable overall preservation of the transported physical information. But, a key criteria is the compressibility of the information.
 
 <p align="center">
-  <img src="../figures/X_rbfvstutte.png"
+  <img src="../figures/x-coordinate-pod-rbf-vs-tutte.png"
        alt="Compressibility of X"
        width="400">
 </p>
@@ -103,7 +103,7 @@ The unit-disk approach and the representative-geometry approach are subsequently
 </p>
 
 <p align="center">
-  <img src="../figures/y_rbfvstutte.png"
+  <img src="../figures/y-coordinate-pod-rbf-vs-tutte.png"
        alt="Compressibility of Y"
        width="400">
 </p>
@@ -118,7 +118,7 @@ The unit-disk approach and the representative-geometry approach are subsequently
 Following mesh morphing, the physical fields associated with each simulation are transferred onto the transformed meshes and interpolated onto a common reference discretization. This procedure provides a consistent representation of all simulation outputs, allowing comparisons between physical fields and enabling dimensionality reduction. Visual inspections are performed to verify that the interpolation and geometrical transformations preserved the main physical structures of the temperature, pressure, and velocity fields.
 
 <p align="center">
-  <img src="../figures/after_mm_T,P,V.png"
+  <img src="../figures/physical-fields-after-mesh-morphing.png"
        alt="Common representation"
        width="730">
 </p>

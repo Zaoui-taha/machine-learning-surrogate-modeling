@@ -40,7 +40,7 @@ The parametrized MMGP formulation provides a more accurate reconstruction of loc
 To quantify this behavior, the three evaluation metrics are compared for the temperature field in the following figure.
 
 <p align="center">
-  <img src="../figures/Eval_Temperature.png"
+  <img src="../figures/temperature-surrogate-model-metrics.png"
        alt="Comparison of RRMSE, R2, and maximum absolute error for the temperature field"
        width="750">
 </p>
@@ -58,7 +58,7 @@ Pressure prediction represents a particularly challenging aspect of the study. U
 The classical MMGP model significantly underestimates the pressure in this critical region, while the parametrized MMGP provides better predictions with smaller local residuals. Nevertheless, the remaining errors remain too large for reliable prediction of localized pressure phenomena. The following figure compares the three evaluation metrics for the pressure field.
 
 <p align="center">
-  <img src="../figures/Eval_pression.png"
+  <img src="../figures/pressure-surrogate-model-metrics.png"
        alt="Comparison of RRMSE, R2, and maximum absolute error for the pressure field"
        width="750">
 </p>
@@ -83,7 +83,7 @@ Prediction residuals concentrate mainly near the cylinder boundaries and other r
 The following figure compares the three evaluation metrics for the velocity field.
 
 <p align="center">
-  <img src="../figures/Eval_vitesse.png"
+  <img src="../figures/velocity-surrogate-model-metrics.png"
        alt="Comparison of RRMSE, R2, and maximum absolute error for the velocity field"
        width="750">
 </p>
@@ -113,7 +113,7 @@ The relatively weak predictive performance of the classical MMGP motivates an ad
 A feature importance analysis based on **SHAP (SHapley Additive exPlanations)** is conducted to estimate the contribution of each input variable to the prediction of individual POD coefficients. The analysis considers the physical parameters and the reduced geometrical coordinates. Rather than selecting features using SHAP importance alone, a progressive feature selection procedure is implemented. Geometrical descriptors are introduced according to their importance ranking, and the regression models are retrained to evaluate the influence of input dimensionality on predictive performance.
 
 <p align="center">
-  <img src="../figures/Shapley_T,P,V.png"
+  <img src="../figures/shap-feature-importance-physical-fields.png"
        alt="Shape for temperature POD modes"
        width="610">
 </p>
@@ -125,7 +125,7 @@ A feature importance analysis based on **SHAP (SHapley Additive exPlanations)** 
 An initial reduced model containing **14 input variables**, including six physical parameters and eight selected geometrical descriptors, is retained. A subsequent robustness evaluation on an additional dataset reveals that two geometrical descriptors, **X̃₅** and **X̃₆**, negatively affect the overall generalization performance.
 
 <p align="center">
-  <img src="../figures/selection_variables.png"
+  <img src="../figures/shap-feature-selection-pod-coefficients.png"
        alt="Selection of the variables"
        width="450">
 </p>
@@ -151,7 +151,7 @@ Although the first POD modes substantially reduce local errors, adding more mode
 The following figure illustrates this stabilization of the POD reconstruction error on the test set.
 
 <p align="center">
-  <img src="../figures/err_max_evol_T.png"
+  <img src="../figures/temperature-pod-max-error-vs-modes.png"
        alt="Stabilization of POD reconstruction error on the test set"
        width="450">
 </p>
