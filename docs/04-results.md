@@ -31,25 +31,7 @@ This metric is particularly important in the present application because localiz
 
 Using both global and local metrics provides a more complete assessment of surrogate model reliability.
 
-### 5.2. Predicted vs. Real POD Contributions for Temperature
-
-To further assess the predictive capability of the surrogate model, the predicted POD coefficients of the temperature field are compared with their corresponding reference values.
-
-The following figure illustrates the agreement between predicted and real values of the retained temperature POD contributions.
-
-<p align="center">
-  <img src="../figures/temperature_pod_predicted_vs_real.png"
-       alt="Predicted versus real temperature POD coefficients"
-       width="650">
-</p>
-
-<p align="center">
-  <em>Figure 1. Predicted versus real values of the retained POD coefficients for the temperature field.</em>
-</p>
-
-This figure shows that the surrogate model captures the dominant modal contributions with good overall agreement, although some discrepancies remain for specific modes or observations.
-
-### 5.3. Temperature Field Prediction
+### 5.2. Temperature Field Prediction
 
 Both surrogate models successfully reproduce the main spatial trends of the temperature field.
 
@@ -79,7 +61,7 @@ To quantify this behavior, the three evaluation metrics are compared for the tem
 
 These observations highlight an important limitation: reproducing the global behavior of a physical field does not necessarily guarantee sufficient local accuracy for industrial decision-making.
 
-### 5.4. Pressure Field Prediction
+### 5.3. Pressure Field Prediction
 
 Pressure prediction represents a particularly challenging aspect of the study.
 
@@ -107,7 +89,7 @@ The following figure compares the three evaluation metrics for the pressure fiel
 
 This result demonstrates the difficulty of learning physical fields whose behavior is dominated by strongly concentrated spatial structures.
 
-### 5.5. Velocity Field Prediction
+### 5.4. Velocity Field Prediction
 
 The surrogate models demonstrate comparatively strong performance in predicting the velocity field.
 
@@ -136,7 +118,7 @@ The following figure compares the three evaluation metrics for the velocity fiel
   <em>Figure 4. Comparison of RRMSE, R², and maximum absolute error for the velocity field.</em>
 </p>
 
-### 5.6. Quantitative Comparison of Surrogate Models
+### 5.5. Quantitative Comparison of Surrogate Models
 
 The two modeling approaches are evaluated on the independent test dataset using RRMSE, R², and maximum absolute error.
 
@@ -150,7 +132,7 @@ Overall, these results suggest that explicitly representing the geometry through
 
 However, the greater flexibility of the classical MMGP formulation remains potentially useful for applications involving geometries without an explicit parametrization.
 
-### 5.7. SHAP-Based Feature Importance and Input Selection
+### 5.6. SHAP-Based Feature Importance and Input Selection
 
 The relatively weak predictive performance of the classical MMGP motivates an additional investigation into the relevance and redundancy of its input variables.
 
@@ -182,7 +164,7 @@ An ablation study is therefore performed by removing these descriptors individua
 
 The results emphasize the importance of combining interpretability methods with experimental validation when selecting surrogate model inputs.
 
-### 5.8. Investigating the Limitations of POD Reconstruction
+### 5.7. Investigating the Limitations of POD Reconstruction
 
 Despite the encouraging global prediction results, both surrogate models exhibit substantial errors in localized regions.
 
@@ -225,7 +207,7 @@ These results indicate that simply increasing the number of POD modes is not suf
 
 The analysis also suggests that the limitations arise not only from the regression model but from the interaction between dimensionality reduction, reconstruction, and generalization to new simulations.
 
-### 5.9. Main Findings and Motivation for Further Investigation
+### 5.8. Main Findings and Motivation for Further Investigation
 
 The experimental comparison leads to several important conclusions:
 
