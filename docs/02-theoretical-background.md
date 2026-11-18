@@ -1,4 +1,3 @@
-
 ### Proper Orthogonal Decomposition (POD)
 
 The snapshot matrix is defined as:
